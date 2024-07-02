@@ -21,7 +21,16 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Resolve paths */
+    "paths": {
+      "#": ["./src/components"],
+      "#/*": ["./src/components/*"],
+
+      "@": ["./src"],
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src"]
 }
