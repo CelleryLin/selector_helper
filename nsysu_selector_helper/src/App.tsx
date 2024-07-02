@@ -86,7 +86,7 @@ const App: FC = () => {
           dataSource={courses}
           renderItem={course => (
             <List.Item>
-              <Typography.Text>{course.name}</Typography.Text> - {course.teacher} ({course.credit} credits)
+              <Typography.Text>{course.id} {course.name}</Typography.Text> - {course.teacher} ({course.credit} credits)
             </List.Item>
           )}
           style={{ marginTop: '20px' }}

@@ -24,7 +24,11 @@ export class NSYSUCourseAPI {
     if (!response.ok) {
       throw new Error('Failed to fetch courses');
     }
-    return response.json();
+
+    return response.json().then((courses: Course[]) => {
+      return Array.from(new Set(courses.map(course => course.id)))
+        .map(id => courses.find(course => course.id === id)!);
+    });
   }
 
   static async getLatestCourses(): Promise<Course[]> {
