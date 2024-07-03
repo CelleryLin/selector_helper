@@ -109,22 +109,22 @@ const SectionHeader: FC<HeaderProps> = ({
 
   const navTabs: MenuProps['items'] = [
     {
-      key: 'all-courses',
+      key: 'allCourses',
       label: t('allCourses'),
       icon: <BookOutlined />,
     },
     {
-      key: 'semester-compulsory',
+      key: 'semesterCompulsory',
       label: t('semesterCompulsory'),
       icon: <BookFilled />,
     },
     {
-      key: 'course-detective',
+      key: 'courseDetective',
       label: t('courseDetective'),
       icon: <FileSearchOutlined />,
     },
     {
-      key: 'selected-export',
+      key: 'selectedExport',
       label: t('selectedExport'),
       icon: <FileDoneOutlined />,
     },
