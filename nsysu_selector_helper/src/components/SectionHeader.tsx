@@ -9,6 +9,7 @@ import {
   Select,
   SelectProps,
 } from 'antd';
+import { useTranslation } from 'react-i18next';
 import {
   BookFilled,
   BookOutlined,
@@ -17,9 +18,10 @@ import {
   NotificationOutlined,
   MenuOutlined,
 } from '@ant-design/icons';
-import banner from '@/assets/banner.svg';
 import styled from 'styled-components';
+
 import { AcademicYear } from '@/types';
+import banner from '@/assets/banner.svg';
 
 const HeaderContainer = styled(Flex)<{
   $primaryColor: string;
@@ -97,6 +99,8 @@ const SectionHeader: FC<HeaderProps> = ({
   selectedSemester,
   setSelectedSemester,
 }) => {
+  const { t } = useTranslation();
+
   const { token } = theme.useToken();
   const primaryColor = token.colorPrimary;
   const textColor = '#ffffff';
@@ -104,15 +108,31 @@ const SectionHeader: FC<HeaderProps> = ({
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const navTabs: MenuProps['items'] = [
-    { key: 'all-courses', label: '所有課程', icon: <BookOutlined /> },
-    { key: 'semester-compulsory', label: '學期必修', icon: <BookFilled /> },
+    {
+      key: 'all-courses',
+      label: t('all-courses'),
+      icon: <BookOutlined />,
+    },
+    {
+      key: 'semester-compulsory',
+      label: t('semester-compulsory'),
+      icon: <BookFilled />,
+    },
     {
       key: 'course-detective',
-      label: '課程偵探',
+      label: t('course-detective'),
       icon: <FileSearchOutlined />,
     },
-    { key: 'selected-export', label: '已選匯出', icon: <FileDoneOutlined /> },
-    { key: 'announcements', label: '公告', icon: <NotificationOutlined /> },
+    {
+      key: 'selected-export',
+      label: t('selected-export'),
+      icon: <FileDoneOutlined />,
+    },
+    {
+      key: 'announcements',
+      label: t('announcements'),
+      icon: <NotificationOutlined />,
+    },
   ];
 
   const semesterCodeMap = {
@@ -127,11 +147,11 @@ const SectionHeader: FC<HeaderProps> = ({
     .sort((a, b) => b.localeCompare(a))
     .map((year) => ({
       key: year,
-      label: `${year.slice(0, -1)} ${semesterCodeMap[parseInt(year.slice(-1))]}`,
+      label: `${year.slice(0, -1)} ${semesterCodeMap[parseInt(year.slice(-1)) as 1 | 2 | 3]}`,
       value: year,
     }));
 
-  const handleMenuClick = (e: any) => {
+  const handleMenuClick = (e: { key: string }) => {
     setSelectedKeys([e.key]);
     setDrawerOpen(false);
   };
@@ -148,8 +168,8 @@ const SectionHeader: FC<HeaderProps> = ({
         </Flex>
         <Flex align={'center'} justify={'center'}>
           <StyledSelect
-            value={selectedSemester === '' ? '載入中...' : selectedSemester}
-            onChange={(value) => setSelectedSemester(value)}
+            value={selectedSemester === '' ? t('loading') : selectedSemester}
+            onChange={(value) => setSelectedSemester(value as string)}
             options={semesterOptions}
             loading={!semesterOptions.length}
             style={{ width: 120 }}
@@ -171,14 +191,14 @@ const SectionHeader: FC<HeaderProps> = ({
         </MobileMenu>
       </HeaderContainer>
       <Drawer
-        title='中山大學選課小幫手'
+        title={t('selector-helper')}
         placement='left'
         onClose={() => setDrawerOpen(false)}
         open={drawerOpen}
       >
         <Flex vertical={true} gap={20}>
           <Select
-            value={selectedSemester === '' ? '載入中...' : selectedSemester}
+            value={selectedSemester === '' ? t('loading') : selectedSemester}
             onChange={(value) => setSelectedSemester(value)}
             options={semesterOptions}
             loading={!semesterOptions.length}

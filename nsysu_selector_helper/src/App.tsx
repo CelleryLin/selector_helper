@@ -7,7 +7,7 @@ import { NSYSUCourseAPI } from '@/api/NSYSUCourseAPI.ts';
 import SectionHeader from '#/SectionHeader.tsx';
 
 const App: FC = () => {
-  const [themeConfig, _setThemeConfig] = useThemeConfig();
+  const [themeConfig] = useThemeConfig();
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -17,7 +17,7 @@ const App: FC = () => {
     history: {},
   });
   const [selectedSemester, setSelectedSemester] = useState('');
-  const [courses, setCourses] = useState<Course[]>([]);
+  const [, setCourses] = useState<Course[]>([]);
 
   useEffect(() => {
     NSYSUCourseAPI.getAvailableSemesters().then((availableSemesters) => {
