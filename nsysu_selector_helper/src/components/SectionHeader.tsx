@@ -110,22 +110,22 @@ const SectionHeader: FC<HeaderProps> = ({
   const navTabs: MenuProps['items'] = [
     {
       key: 'all-courses',
-      label: t('all-courses'),
+      label: t('allCourses'),
       icon: <BookOutlined />,
     },
     {
       key: 'semester-compulsory',
-      label: t('semester-compulsory'),
+      label: t('semesterCompulsory'),
       icon: <BookFilled />,
     },
     {
       key: 'course-detective',
-      label: t('course-detective'),
+      label: t('courseDetective'),
       icon: <FileSearchOutlined />,
     },
     {
       key: 'selected-export',
-      label: t('selected-export'),
+      label: t('selectedExport'),
       icon: <FileDoneOutlined />,
     },
     {
@@ -191,7 +191,7 @@ const SectionHeader: FC<HeaderProps> = ({
         </MobileMenu>
       </HeaderContainer>
       <Drawer
-        title={t('selector-helper')}
+        title={t('selectorHelper')}
         placement='left'
         onClose={() => setDrawerOpen(false)}
         open={drawerOpen}

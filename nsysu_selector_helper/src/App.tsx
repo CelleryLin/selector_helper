@@ -5,13 +5,14 @@ import type { AcademicYear, Course } from '@/types';
 import { useThemeConfig } from '@/hooks/useThemeConfig';
 import { NSYSUCourseAPI } from '@/api/NSYSUCourseAPI.ts';
 import SectionHeader from '#/SectionHeader.tsx';
+import EntryNotification from '#/EntryNotification.tsx';
 
 const App: FC = () => {
   const [themeConfig] = useThemeConfig();
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const [selectedKeys, setSelectedKeys] = useState(['all-courses']);
+  const [selectedKeys, setSelectedKeys] = useState(['allCourses']);
   const [availableSemesters, setAvailableSemesters] = useState<AcademicYear>({
     latest: '',
     history: {},
@@ -53,6 +54,7 @@ const App: FC = () => {
   return (
     <ConfigProvider theme={themeConfig}>
       {isLoading && <Spin spinning={true} fullscreen />}
+      <EntryNotification />
       <SectionHeader
         selectedKeys={selectedKeys}
         setSelectedKeys={setSelectedKeys}
