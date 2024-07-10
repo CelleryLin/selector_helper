@@ -49,7 +49,11 @@ const StyledNavDropdown = styled(NavDropdown)`
     .dropdown-toggle {
         display: flex;
         align-items: center;
-        color: white !important;
+
+        // Cellery: 修改樣式
+        color: black !important;
+        background-color: #ffffffef !important;
+        border-radius: 0.375rem;
 
         @media (max-width: 767px) {
             color: black !important;
@@ -57,6 +61,7 @@ const StyledNavDropdown = styled(NavDropdown)`
     }
 
     .dropdown-menu {
+        left: auto !important;
         .dropdown-item {
             &:hover {
                 color: white;
@@ -65,9 +70,19 @@ const StyledNavDropdown = styled(NavDropdown)`
         }
     }
 
-    .nav-link {
-        padding-right: 0 !important;
-        padding-left: 0 !important;
+    // Cellery: 修改樣式
+    // .nav-link {
+    //     padding-right: 0 !important;
+    //     padding-left: 0 !important;
+    // }
+
+    // Cellery: 修改樣式
+    .version-formattedDate {
+        font-size: 0.8rem;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        font-weight: 500;
+        color: #00000077;
     }
 `;
 

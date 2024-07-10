@@ -151,22 +151,28 @@ class App extends Component {
      */
     convertVersion = (version) => {
         // Regular expression to extract parts of the version string
+        // all_classes_SSSS_YYYYMMDD.csv, SSSS is semester code.
         const regex = /all_classes_(\d{3})([123])_(\d{4})(\d{2})(\d{2})\.csv/;
         const match = version.match(regex);
 
         // Return the original string if it doesn't match the expected format
         if (!match) return version;
 
-        const [, academicYear, semesterCode, , month, day] = match;
+        const [, academicYear, semesterCode, year, month, day] = match;
 
         // Convert the academic year and semester code to a readable format
         const semesterText = semesterCode === '1' ? '上' : semesterCode === '2' ? '下' : '暑';
         const formattedAcademicYear = `${parseInt(academicYear, 10)}`;
 
         // Format the update date
-        const formattedDate = `${month}/${day} 資料`;
+        const formattedDate = `${year}${month}${day} 資料`;
 
-        return `${formattedAcademicYear}${semesterText} ${formattedDate}`;
+        return (
+            <>
+                {formattedAcademicYear}{semesterText} 
+                <span className="version-formattedDate">{formattedDate}</span>
+            </>
+        );
     }
 
     /**

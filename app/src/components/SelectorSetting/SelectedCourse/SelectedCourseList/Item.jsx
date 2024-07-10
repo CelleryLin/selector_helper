@@ -20,6 +20,7 @@ const CourseInfo = styled.div`
     text-align: center;
     overflow: hidden;
     text-overflow: fade;
+    font-size: 0.8rem;
 
     &:last-child {
         margin-right: 0;
@@ -40,7 +41,8 @@ const Tag = styled.div`
     border-radius: 4px;
     padding: 2px 5px;
     margin: 2px;
-    font-size: 10px;
+    font-size: 0.7rem;
+    font-weight: bold;
 `;
 
 const StyledLink = styled.a`
@@ -108,7 +110,11 @@ class Item extends Component {
      * @param show
      */
     handleTogglePopover = (show) => {
-        this.setState({showPopover: show});
+
+        // Cellery: 延遲顯示彈出視窗防止閃爍 // didn't work for now, not sure why.
+        setTimeout(() => {
+            this.setState({showPopover: show});
+        }, 10);
     };
 
     /**

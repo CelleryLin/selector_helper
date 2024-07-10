@@ -15,6 +15,7 @@ const CourseInfo = styled.div`
     text-align: center;
     overflow: hidden;
     text-overflow: fade;
+    font-size: 16px;
 
     &:last-child {
         margin-right: 0;
