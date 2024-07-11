@@ -45,6 +45,7 @@ class App extends Component {
         latestCourseHistoryData: "",
         availableCourseHistoryData: [],
         searchTimeSlot: [],
+        preventRefresh: false,
     };
     // whats2000: 防止手機板下拉導致畫面重載，取而代之的是展開課表
     touchStartY = 0;
@@ -326,7 +327,14 @@ class App extends Component {
         if (window.scrollY === 0 && touchCurrentY > this.touchStartY) {
             if (this.state.isCollapsed) {
                 e.preventDefault();
-                this.setState({ isCollapsed: false });
+                this.setState({ isCollapsed: false, preventRefresh: true });
+
+                // 設置維持狀態的時間
+                setTimeout(() => {
+                    this.setState({ preventRefresh: false });
+                }, 1000);
+            } else if (this.state.preventRefresh) {
+                e.preventDefault();
             }
         }
     };
