@@ -325,6 +325,7 @@ class App extends Component {
         const touchCurrentY = e.touches[0].clientY;
         if (window.scrollY === 0 && touchCurrentY > this.touchStartY) {
             if (this.state.isCollapsed) {
+                e.preventDefault();
                 this.setState({ isCollapsed: false });
             }
         }
