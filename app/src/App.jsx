@@ -324,20 +324,10 @@ class App extends Component {
     handleTouchMove = (e) => {
         const touchCurrentY = e.touches[0].clientY;
         if (window.scrollY === 0 && touchCurrentY > this.touchStartY) {
-            if (this.shouldPreventPullToRefresh()) {
-                e.preventDefault();
-            } else {
+            if (this.state.isCollapsed) {
                 this.setState({ isCollapsed: false });
             }
         }
-    };
-
-    /**
-     * 檢查是否應該阻止下拉刷新
-     */
-    shouldPreventPullToRefresh = () => {
-        const { isCollapsed } = this.state;
-        return !isCollapsed;
     };
 
     /**
