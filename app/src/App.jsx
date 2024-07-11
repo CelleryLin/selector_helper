@@ -226,7 +226,12 @@ class App extends Component {
      * 切換課表顯示狀態
      */
     toggleSchedule = () => {
-        this.setState({isCollapsed: !this.state.isCollapsed});
+        // whats2000: 若是手機板，且摺疊狀態，則展防止畫面重載
+        if (window.innerWidth < 992 && !this.state.isCollapsed) {
+            this.setState({isCollapsed: true, preventRefresh: true});
+        } else {
+            this.setState(prevState => ({isCollapsed: !prevState.isCollapsed}));
+        }
     };
 
     /**
@@ -332,7 +337,7 @@ class App extends Component {
                 // 設置維持狀態的時間
                 setTimeout(() => {
                     this.setState({ preventRefresh: false });
-                }, 1000);
+                }, 2000);
             } else if (this.state.preventRefresh) {
                 e.preventDefault();
             }
