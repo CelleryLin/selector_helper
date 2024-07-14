@@ -179,6 +179,18 @@ class Item extends Component {
         const time = Object.keys(days)
             .map(day => course[day] ? <Tag key={day}>{days[day]} {course[day]}</Tag> : null)
             .filter(tag => tag !== null);
+        
+        // 處理可能有多個教授的情況
+        const teachers = course['Teacher'].split(',')
+            .map((teacher, index) => {
+                const teacherName = teacher.trim().replace('\'', '');
+                const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(`中山大學 ${teacherName} DCard | PTT`)}`;
+                return (
+                    <Tag key={index}>
+                        {teacherName}
+                    </Tag>
+                );
+            });
 
         // 處理全英課程
         const emi = (
@@ -222,6 +234,7 @@ class Item extends Component {
                 </TinyCourseInfo>
                 <CourseInfo>{courseName} ({courseNumber})</CourseInfo>
                 <SmallCourseInfo>{course['Department']}</SmallCourseInfo>
+                <SmallCourseInfo>{teachers}</SmallCourseInfo>
                 <SmallCourseInfo>{time}</SmallCourseInfo>
                 <TinyCourseInfo>{emi}</TinyCourseInfo>
                 <SmallCourseInfo>

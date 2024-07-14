@@ -61,6 +61,8 @@ class CourseBlock extends Component {
      */
     getHashColor = (courseUniqueCode) => {
         let hash = 0;
+        // Cellery: 只保留最前面的英文代碼，屬性一樣者用同樣顏色
+        courseUniqueCode = courseUniqueCode.replace(/([a-zA-Z]*).*/g, '$1');
         for (let i = 0; i < courseUniqueCode.length; i++) {
             hash = courseUniqueCode.charCodeAt(i) + ((hash << 5) - hash);
         }
@@ -81,6 +83,8 @@ class CourseBlock extends Component {
             backgroundColor: isHover ? websiteColor.mainColor : this.getHashColor(course['Number'] + course['Name']),
             color: isHover ? 'white' : 'initial',
             boxShadow: isHover ? `0 0 0 0.25rem ${websiteColor.boxShadowColor}` : 'none',
+            // Cellery: onHover時字體放大
+            fontSize: isHover ? '0.8rem' : '',
         };
 
         return (

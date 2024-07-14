@@ -38,6 +38,7 @@ class Header extends Component {
                     <TinyCourseInfo>加選</TinyCourseInfo>
                     <CourseInfo>名稱/課號</CourseInfo>
                     <SmallCourseInfo>系所</SmallCourseInfo>
+                    <SmallCourseInfo>教師</SmallCourseInfo>
                     <SmallCourseInfo>時間</SmallCourseInfo>
                     <TinyCourseInfo>英課</TinyCourseInfo>
                     <SmallCourseInfo>志願/點數</SmallCourseInfo>
