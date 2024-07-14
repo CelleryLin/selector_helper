@@ -175,6 +175,8 @@ class Item extends Component {
 
         // 處理可能有多個學程的情況
         const programs = course['Programs'] ? course['Programs'].split(',')
+            // whats2000: 去除重複的學程
+            .filter((program, index, self) => self.indexOf(program) === index)
             .map(program => <Tag key={program}>{program.trim().replaceAll('\'', '')}</Tag>) : (<>無</>);
 
         // 處理學分顏色 0 ~ 3
@@ -227,10 +229,12 @@ class Item extends Component {
                 color: 'bg-warning text-white',
             },
         }
+        // whats2000: 0 ~ 9 換成符號
+        const gradeCode = '⓿❶❷❸❹❺❻❼❽❾'
         const courseClass = (
             <Tag
                 className={classColor[course['Class']] ? classColor[course['Class']].color : 'bg-transparent border-0'}>
-                {classColor[course['Class']] ? `${classColor[course['Class']].name}[${course['Grade']}]` : '缺失'}
+                {classColor[course['Class']] ? `${classColor[course['Class']].name} ${gradeCode[course['Grade']]}` : '缺失'}
             </Tag>
         )
 
