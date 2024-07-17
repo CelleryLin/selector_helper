@@ -21,19 +21,22 @@ const StyledTable = styled.table`
 const HeaderCell = styled.th`
   font-weight: normal;
   padding: 2px !important;
-  background-color: lightgray !important;
+  // background-color: lightgray !important;
+  opacity: 1; !important;
 `;
 
 const TimeSlotCell = styled.th`
   width: 4%;
   padding: 2px !important;
   font-weight: normal;
-  background-color: lightgray !important;
+  // background-color: lightgray !important;
+  opacity: 1; !important;
 `;
 
 const CourseCell = styled.td`
   width: 12.5%;
   padding: 2px !important;
+  opacity: 0.8;
 `;
 
 const CourseCellDetectiveMode = styled(CourseCell)`
@@ -117,7 +120,13 @@ class ScheduleTable extends Component {
             <tr>
               <HeaderCell>期</HeaderCell>
               {this.setting.weekday.map((weekday, index) => (
-                <HeaderCell key={index}>{weekday.value}</HeaderCell>
+                <HeaderCell
+                  key={index}
+                  style={
+                    { backgroundColor: weekday.key === 'Saturday' || weekday.key === 'Sunday' ? '#dcdee3' : '' }
+                  }
+                
+                >{weekday.value}</HeaderCell>
               ))}
             </tr>
           </thead>
@@ -135,6 +144,9 @@ class ScheduleTable extends Component {
                       this.isTimeSlotSelected(weekday.key, timeSlot.key)
                         ? 'bg-success-subtle'
                         : ''
+                    }
+                    style={
+                      { backgroundColor: weekday.key === 'Saturday' || weekday.key === 'Sunday' ? '#dcdee3' : '' }
                     }
                     onClick={() =>
                       this.toggleTimeSlotSelect(weekday.key, timeSlot.key)

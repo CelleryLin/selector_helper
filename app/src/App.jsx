@@ -11,6 +11,11 @@ import EntryNotification from './components/EntryNotification';
 
 import { courseData } from './config';
 
+import {
+  ArrowBarRight,
+  ArrowBarLeft,
+} from 'react-bootstrap-icons';
+
 const MainContent = styled.main`
   margin-top: 68px;
 `;
@@ -19,17 +24,22 @@ const SlideColContainer = styled(Col)`
   transition: margin 0.5s;
 `;
 
+// Cellery: 收合「顯示課表」按鈕
 const ToggleButton = styled.button`
   position: fixed;
   z-index: 100;
-  left: 0;
+  left: -2rem;
   top: 50%;
   transform: translateY(-50%);
+  transition: left 0.1s, opacity 0.1s;
   opacity: 0.5;
   border-radius: 0 0.375rem 0.375rem 0;
+  height: 10rem;
+  width: 1rem;
 
   &:hover {
     opacity: 1;
+    left: 0;
   }
 `;
 
@@ -188,7 +198,7 @@ class App extends Component {
    * @param version
    */
   convertVersion = (version) => {
-    // Regular expression to extract parts of the version string
+    // Cellery: Regular expression to extract parts of the version string
     // all_classes_SSSS_YYYYMMDD.csv, SSSS is semester code.
     const regex = /all_classes_(\d{3})([123])_(\d{4})(\d{2})(\d{2})\.csv/;
     const match = version.match(regex);
@@ -418,12 +428,12 @@ class App extends Component {
         />
         <EntryNotification />
         {loading && <LoadingSpinner loadingName={loading} />}
-
+        {/* bookmark */}
         <ToggleButton
-          className='btn btn-secondary w-auto'
+          className='btn toggle-schedule-btn btn-secondary w-auto'
           onClick={this.toggleSchedule}
         >
-          {isCollapsed ? '>' : '<'}
+          {isCollapsed ? <ArrowBarRight /> : <ArrowBarLeft />}
         </ToggleButton>
 
         <MainContent id='app' className='container-fluid'>

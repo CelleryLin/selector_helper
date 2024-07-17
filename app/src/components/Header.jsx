@@ -7,7 +7,7 @@ import {
   Offcanvas,
 } from 'react-bootstrap';
 import {
-  BookFill,
+  Book,
   Check2Square,
   ClockHistory,
   JournalCheck,
@@ -112,7 +112,7 @@ class Header extends Component {
   navTabs = [
     {
       title: '所有課程',
-      icon: <BookFill />,
+      icon: <Book />,
     },
     {
       title: '學期必修',
