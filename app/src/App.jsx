@@ -11,10 +11,7 @@ import EntryNotification from './components/EntryNotification';
 
 import { courseData } from './config';
 
-import {
-  ArrowBarRight,
-  ArrowBarLeft,
-} from 'react-bootstrap-icons';
+import { ArrowBarRight, ArrowBarLeft } from 'react-bootstrap-icons';
 
 const MainContent = styled.main`
   margin-top: 68px;
@@ -31,7 +28,9 @@ const ToggleButton = styled.button`
   left: -2rem;
   top: 50%;
   transform: translateY(-50%);
-  transition: left 0.1s, opacity 0.1s;
+  transition:
+    left 0.1s,
+    opacity 0.1s;
   opacity: 0.5;
   border-radius: 0 0.375rem 0.375rem 0;
   height: 10rem;
@@ -127,19 +126,24 @@ class App extends Component {
         console.error('轉換課程資料失敗：', error);
 
         removeLoadingScreen();
+      })
+      .finally(() => {
+        // whats2000: 處理網址 hash 應自動切換至對應頁面
+        const hash = decodeURI(window.location.hash);
+
+        if (
+          hash &&
+          [
+            '#所有課程',
+            '#學期必修',
+            '#課程偵探',
+            '#已選匯出',
+            '#公告',
+          ].includes(hash)
+        ) {
+          this.setState({ currentTab: hash.slice(1) });
+        }
       });
-
-    // whats2000: 處理網址 hash 應自動切換至對應頁面
-    const hash = decodeURI(window.location.hash);
-
-    if (
-      hash &&
-      ['#所有課程', '#學期必修', '#課程偵探', '#已選匯出', '#公告'].includes(
-        hash,
-      )
-    ) {
-      this.setState({ currentTab: hash.slice(1) });
-    }
   }
 
   /**
