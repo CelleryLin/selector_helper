@@ -37,7 +37,7 @@ const ToggleButton = styled.button`
   width: 1rem;
 
   &:hover {
-    opacity: 1;
+    opacity: 0.8;
     left: 0;
   }
 `;
