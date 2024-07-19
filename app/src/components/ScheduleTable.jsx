@@ -122,11 +122,15 @@ class ScheduleTable extends Component {
               {this.setting.weekday.map((weekday, index) => (
                 <HeaderCell
                   key={index}
-                  style={
-                    { backgroundColor: weekday.key === 'Saturday' || weekday.key === 'Sunday' ? '#dcdee3' : '' }
-                  }
-                
-                >{weekday.value}</HeaderCell>
+                  style={{
+                    backgroundColor:
+                      weekday.key === 'Saturday' || weekday.key === 'Sunday'
+                        ? '#dcdee3'
+                        : '',
+                  }}
+                >
+                  {weekday.value}
+                </HeaderCell>
               ))}
             </tr>
           </thead>
@@ -145,9 +149,12 @@ class ScheduleTable extends Component {
                         ? 'bg-success-subtle'
                         : ''
                     }
-                    style={
-                      { backgroundColor: weekday.key === 'Saturday' || weekday.key === 'Sunday' ? '#dcdee3' : '' }
-                    }
+                    style={{
+                      backgroundColor:
+                        weekday.key === 'Saturday' || weekday.key === 'Sunday'
+                          ? '#dcdee3'
+                          : '',
+                    }}
                     onClick={() =>
                       this.toggleTimeSlotSelect(weekday.key, timeSlot.key)
                     }

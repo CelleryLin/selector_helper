@@ -190,7 +190,17 @@ class Item extends Component {
     const teachers = course['Teacher'].split(',').map((teacher, index) => {
       const teacherName = teacher.trim().replace("'", '');
       const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(`中山大學 ${teacherName} DCard | PTT`)}`;
-      return <Tag key={index}>{teacherName}</Tag>;
+      return (
+        <Tag key={index}>
+          <StyledLink
+            href={searchUrl}
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            {teacherName}
+          </StyledLink>
+        </Tag>
+      );
     });
 
     // 處理全英課程
