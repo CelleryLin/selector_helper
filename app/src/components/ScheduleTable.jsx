@@ -33,15 +33,40 @@ const TimeSlotCell = styled.th`
   opacity: 1; !important;
 `;
 
+// Cellery: 更改選取樣式
+const SelectedTimeSlot = `
+  // background-color: #e1e39f !important;
+  -webkit-animation: pulse 800ms infinite alternate;
+  animation: pulse 800ms infinite alternate;
+
+  @-webkit-keyframes pulse {
+    0% {  }
+    20% { background-color: #e1e39f; }
+    80% { background-color: #e1e39f; }
+    100% {  }
+  }
+  @keyframes pulse {
+    0% {  }
+    20% { background-color: #e1e39f; }
+    80% { background-color: #e1e39f; }
+    100% {  }
+  }
+`
+
 const CourseCell = styled.td`
   width: 12.5%;
   padding: 2px !important;
   opacity: 0.8;
+
+  &.selected-time-slot {
+    ${SelectedTimeSlot}
+  }
 `;
+
 
 const CourseCellDetectiveMode = styled(CourseCell)`
   &:hover {
-    background: lightgray;
+    opacity: 1;
   }
 `;
 
@@ -146,7 +171,7 @@ class ScheduleTable extends Component {
                     key={`${weekday.key}-${timeSlot.key}`}
                     className={
                       this.isTimeSlotSelected(weekday.key, timeSlot.key)
-                        ? 'bg-success-subtle'
+                        ? 'selected-time-slot'
                         : ''
                     }
                     style={{
