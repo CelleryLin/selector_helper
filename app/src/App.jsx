@@ -11,10 +11,7 @@ import EntryNotification from './components/EntryNotification';
 
 import { courseData } from './config';
 
-import {
-  ArrowBarRight,
-  ArrowBarLeft,
-} from 'react-bootstrap-icons';
+import { ArrowBarRight, ArrowBarLeft } from 'react-bootstrap-icons';
 
 const MainContent = styled.main`
   margin-top: 68px;
@@ -31,14 +28,16 @@ const ToggleButton = styled.button`
   left: -2rem;
   top: 50%;
   transform: translateY(-50%);
-  transition: left 0.1s, opacity 0.1s;
+  transition:
+    left 0.1s,
+    opacity 0.1s;
   opacity: 0.5;
   border-radius: 0 0.375rem 0.375rem 0;
   height: 10rem;
   width: 1rem;
 
   &:hover {
-    opacity: 1;
+    opacity: 0.8;
     left: 0;
   }
 `;
@@ -55,10 +54,7 @@ class App extends Component {
     latestCourseHistoryData: '',
     availableCourseHistoryData: [],
     searchTimeSlot: [],
-    preventRefresh: false,
   };
-  // whats2000: 防止手機板下拉導致畫面重載，取而代之的是展開課表
-  touchStartY = 0;
 
   componentDidMount() {
     // 移除靜態載入畫面
@@ -129,31 +125,24 @@ class App extends Component {
         console.error('轉換課程資料失敗：', error);
 
         removeLoadingScreen();
+      })
+      .finally(() => {
+        // whats2000: 處理網址 hash 應自動切換至對應頁面
+        const hash = decodeURI(window.location.hash);
+
+        if (
+          hash &&
+          [
+            '#所有課程',
+            '#學期必修',
+            '#課程偵探',
+            '#已選匯出',
+            '#公告',
+          ].includes(hash)
+        ) {
+          this.setState({ currentTab: hash.slice(1) });
+        }
       });
-
-    // whats2000: 處理網址 hash 應自動切換至對應頁面
-    const hash = decodeURI(window.location.hash);
-
-    if (
-      hash &&
-      ['#所有課程', '#學期必修', '#課程偵探', '#已選匯出', '#公告'].includes(
-        hash,
-      )
-    ) {
-      this.setState({ currentTab: hash.slice(1) });
-    }
-
-    window.addEventListener('touchstart', this.handleTouchStart, {
-      passive: false,
-    });
-    window.addEventListener('touchmove', this.handleTouchMove, {
-      passive: false,
-    });
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('touchstart', this.handleTouchStart);
-    window.removeEventListener('touchmove', this.handleTouchMove);
   }
 
   /**
@@ -266,11 +255,20 @@ class App extends Component {
    * 切換課表顯示狀態
    */
   toggleSchedule = () => {
-    // whats2000: 若是手機板，且摺疊狀態，則展防止畫面重載
-    if (window.innerWidth < 992 && !this.state.isCollapsed) {
-      this.setState({ isCollapsed: true, preventRefresh: true });
+    this.setState((prevState) => ({ isCollapsed: !prevState.isCollapsed }));
+
+    // whats2000: 修復手機版課表收折行為改成滑動
+    if (window.innerWidth >= 992) return;
+
+    if (this.state.isCollapsed) {
+      // 滑動到頂部
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      this.setState((prevState) => ({ isCollapsed: !prevState.isCollapsed }));
+      // 滑動到功能區
+      const scheduleSetting = document.getElementById('schedule-setting');
+      if (scheduleSetting) {
+        scheduleSetting.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -363,37 +361,6 @@ class App extends Component {
   };
 
   /**
-   * 處理觸碰開始事件
-   * @param e {TouchEvent} 觸碰事件
-   */
-  handleTouchStart = (e) => {
-    if (window.scrollY === 0) {
-      this.touchStartY = e.touches[0].clientY;
-    }
-  };
-
-  /**
-   * 處理觸碰移動事件
-   * @param e {TouchEvent} 觸碰事件
-   */
-  handleTouchMove = (e) => {
-    const touchCurrentY = e.touches[0].clientY;
-    if (window.scrollY === 0 && touchCurrentY > this.touchStartY) {
-      if (this.state.isCollapsed) {
-        e.preventDefault();
-        this.setState({ isCollapsed: false, preventRefresh: true });
-
-        // 設置維持狀態的時間
-        setTimeout(() => {
-          this.setState({ preventRefresh: false });
-        }, 2000);
-      } else if (this.state.preventRefresh) {
-        e.preventDefault();
-      }
-    }
-  };
-
-  /**
    * 渲染元件
    * @returns {React.ReactNode} 元件
    */
@@ -412,7 +379,6 @@ class App extends Component {
     } = this.state;
     const slideStyle = {
       marginLeft: isCollapsed ? (window.innerWidth >= 992 ? '-50%' : '0') : '0',
-      marginTop: isCollapsed ? (window.innerWidth < 992 ? '-600%' : '0') : '0',
     };
 
     return (
@@ -453,7 +419,7 @@ class App extends Component {
               />
             </SlideColContainer>
 
-            <Col className='d-flex flex-column'>
+            <Col className='d-flex flex-column' id='schedule-setting'>
               <SelectorSetting
                 isCollapsed={isCollapsed}
                 currentTab={currentTab}

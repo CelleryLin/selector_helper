@@ -53,7 +53,7 @@ export const announcementData = {
       <a href='https://github.com/whats2000/NSYSUCourseAPI'>中山課程開放API</a>
     </>,
   ],
-  githubUrl: 'https://github.com/whats2000/CourseSelectorHelperReact',
+  githubUrl: 'https://github.com/CelleryLin/selector_helper_react/',
   contactEmail: 'yochen0123@gmail.com',
   copyright: [
     'By Cellery Lin and whats2000. MEME113 ',

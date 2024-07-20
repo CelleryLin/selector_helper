@@ -80,10 +80,11 @@ class ListInformation extends Component {
       <>
         <Card.Body>
           <InputGroup className='mb-2'>
+            {/* whats2000: 修改，使說明更清楚 */}
             <Form.Control
               id='all-course-filter'
               type='text'
-              placeholder='關鍵字 (空格分隔)...'
+              placeholder='用空格分隔，名稱、老師、學程、系所、課號'
               value={basicFilter ?? ''}
               onChange={this.handleFilterChange}
             />
