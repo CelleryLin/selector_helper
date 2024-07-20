@@ -75,7 +75,6 @@ class App extends Component {
       .then((response) => response.json())
       .then((files) => {
         if (!(files && files.length)) throw new Error('抓取課程資料失敗。');
-
         // Filter out the .csv files and group by academic year and semester
         const groupedFiles = files
           .filter((file) => file.name.endsWith('.csv'))
