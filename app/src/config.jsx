@@ -53,7 +53,7 @@ export const announcementData = {
       <a href='https://github.com/whats2000/NSYSUCourseAPI'>中山課程開放API</a>
     </>,
   ],
-  githubUrl: 'https://github.com/CelleryLin/selector_helper_react/',
+  githubUrl: 'https://github.com/CelleryLin/selector_helper/',
   contactEmail: 'yochen0123@gmail.com',
   copyright: [
     'By Cellery Lin and whats2000. MEME113 ',
@@ -64,7 +64,7 @@ export const announcementData = {
 export const entryNotificationConfig = {
   version: announcementData.version,
   description:
-    '中山選課小助手迎來第三學期囉~ 感謝您使用這個系統，也獲得不錯的流量。您寶貴的意見我們都有收到，並會改善更新，感謝各位支持與回饋了！',
+    '感謝您使用這個系統，您寶貴的意見我們都有收到，並會改善更新，感謝各位支持與回饋了！',
   updates: announcementData.updates,
   feedbackFormUrl: announcementData.feedbackFormUrl,
 };

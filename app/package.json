@@ -2,7 +2,7 @@
   "name": "app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://CelleryLin.github.io/selector_helper_react",
+  "homepage": "https://CelleryLin.github.io/selector_helper",
   "dependencies": {
     "-": "^0.0.1",
     "@dnd-kit/core": "^6.1.0",
