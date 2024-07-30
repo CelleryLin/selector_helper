@@ -39,7 +39,7 @@ class Announcement extends Component {
       <Card className='h-100 mb-3'>
         <Card.Header className='text-center'>
           <Card.Title className='fw-bolder mb-0 p-2'>
-            🙈這裡是中山大學選課小助手 {announcementData.version}
+            🙈中山大學選課小助手 {announcementData.version}
           </Card.Title>
         </Card.Header>
         <Card.Body>

@@ -7,7 +7,7 @@ import exportCourse6 from './images/ExportCourse6.png';
 import exportCourse7 from './images/ExportCourse7.png';
 
 export const announcementData = {
-  version: 'v5.0.0 beta',
+  version: 'v5.0.0',
   feedbackFormUrl: 'https://forms.gle/gFBZDgkSbj85zukP6',
   description: [
     <>
@@ -71,7 +71,7 @@ export const entryNotificationConfig = {
 
 export const courseData = {
   targetAPI:
-    'https://api.github.com/repos/CelleryLin/selector_helper/contents/all_classes',
+    'https://api.github.com/repos/CelleryLin/selector_helper_old/contents/all_classes',
 };
 
 export const howToUseExportCode = [
