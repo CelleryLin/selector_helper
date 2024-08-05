@@ -6,6 +6,7 @@ import CoursesList from './SelectedCourse/CoursesList';
 import ExportModal from './SelectedCourse/ExportModal';
 import HowToUseModal from './SelectedCourse/HowToUseModal';
 import ImportModal from './SelectedCourse/ImportModal';
+import ReactGA from 'react-ga4';
 
 const StyledCardBody = styled(Card.Body)`
   height: 100%;
@@ -121,6 +122,13 @@ class SelectedCourse extends Component {
   handleExportAddedSelectedCourses = () => {
     const { selectedCourses } = this.props;
     const { addedSelectedCourses, courseWeight } = this.state;
+
+    // send ga4 event
+    ReactGA.event({
+      category: 'Export',
+      action: 'Click',
+      label: 'Export Added Selected Courses',
+    });
 
     // 創建一個包含課程信息的數據結構
     const exportData = Array.from(addedSelectedCourses).map((courseNumber) => {

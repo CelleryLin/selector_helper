@@ -17,7 +17,7 @@ import {
 } from 'react-bootstrap-icons';
 import styled from 'styled-components';
 import { websiteColor } from '../config';
-
+import ReactGA from 'react-ga4';
 import Banner from './banner.svg';
 
 // 自定義 Navbar 樣式
@@ -145,6 +145,13 @@ class Header extends Component {
    */
   handleNavClick = (tab) => {
     this.props.onTabChange(tab);
+    
+    // send ga4 event
+    ReactGA.event({
+      category: 'Tab Click',
+      action: 'Click',
+      label: tab,
+    });
 
     if (this.state.showOffcanvas) {
       this.setState({ showOffcanvas: false });

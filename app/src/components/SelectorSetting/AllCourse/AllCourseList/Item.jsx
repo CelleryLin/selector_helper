@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import styled from 'styled-components';
+import ReactGA from 'react-ga4';
 import { Form, OverlayTrigger, Popover, Stack } from 'react-bootstrap';
 
 const CourseRow = styled.div`
@@ -102,8 +103,18 @@ class Item extends Component {
    * 處理課程選取
    */
   handleCourseSelect = () => {
+    let prev_isSelected = this.props.isSelected;
     this.props.onCourseSelect(this.props.course, !this.props.isSelected);
-  };
+
+    // send ga4 event
+    if (!prev_isSelected) {
+      ReactGA.event({
+        category: 'Course Select',
+        action: 'Click',
+        label: this.props.course.Name,
+      });
+    }
+ };
 
   /**
    * 處理彈出視窗顯示

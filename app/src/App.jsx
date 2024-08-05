@@ -13,6 +13,9 @@ import { courseData } from './config';
 
 import { ArrowBarRight, ArrowBarLeft } from 'react-bootstrap-icons';
 
+import ReactGA from 'react-ga4';
+const TRACKING_ID = "G-38C3BQTTSC"; // your Measurement ID
+
 const MainContent = styled.main`
   margin-top: 68px;
 `;
@@ -56,7 +59,13 @@ class App extends Component {
     searchTimeSlot: [],
   };
 
+
   componentDidMount() {
+
+    //ga4 init
+    ReactGA.initialize(TRACKING_ID);
+    ReactGA.send({ hitType: "pageview" });
+
     // 移除靜態載入畫面
     const loadingScreen = document.getElementById('loading');
     if (loadingScreen) {
