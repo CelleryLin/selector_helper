@@ -85,8 +85,6 @@ class CourseBlock extends Component {
       boxShadow: isHover
         ? `0 0 0 0.25rem ${websiteColor.boxShadowColor}`
         : 'none',
-      // Cellery: onHover時字體放大
-      fontSize: isHover ? '0.8rem' : '',
     };
 
     return (
@@ -98,8 +96,6 @@ class CourseBlock extends Component {
       >
         <span className='d-block fw-bold'>{course['Name']}</span>
         <span>{course['Room']}</span>
-        <HoverInfo>{course['Number']}</HoverInfo>
-        <HoverInfo>{course['Teacher']}</HoverInfo>
         <DeleteButton onClickCapture={this.handleDeleteCourse}>
           <Trash3 size={10} />
         </DeleteButton>
