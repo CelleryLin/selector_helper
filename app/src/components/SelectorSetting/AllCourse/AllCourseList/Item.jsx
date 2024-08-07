@@ -114,7 +114,7 @@ class Item extends Component {
         label: this.props.course.Name,
       });
     }
- };
+  };
 
   /**
    * 處理彈出視窗顯示

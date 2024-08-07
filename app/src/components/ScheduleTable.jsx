@@ -36,7 +36,7 @@ const TimeSlotCell = styled.th`
 // Cellery: 更改選取樣式
 const SelectedTimeSlot = `
   background-color: #e1e39f !important;
-`
+`;
 
 const CourseCell = styled.td`
   width: 12.5%;
@@ -47,7 +47,6 @@ const CourseCell = styled.td`
     ${SelectedTimeSlot}
   }
 `;
-
 
 const CourseCellDetectiveMode = styled(CourseCell)`
   &:hover {

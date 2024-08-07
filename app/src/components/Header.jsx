@@ -145,7 +145,7 @@ class Header extends Component {
    */
   handleNavClick = (tab) => {
     this.props.onTabChange(tab);
-    
+
     // send ga4 event
     ReactGA.event({
       category: 'Tab Click',
