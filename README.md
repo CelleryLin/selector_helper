@@ -1,6 +1,6 @@
 # 中山大學選課助手 React 版
 ## 進入網頁
-https://CelleryLin.github.io/selector_helper_react/
+https://CelleryLin.github.io/selector_helper/
 
 ## 回饋表單：
 https://forms.gle/gFBZDgkSbj85zukP6
