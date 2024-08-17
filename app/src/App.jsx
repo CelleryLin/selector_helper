@@ -18,10 +18,23 @@ const TRACKING_ID = 'G-38C3BQTTSC'; // your Measurement ID
 
 const MainContent = styled.main`
   margin-top: 68px;
+  margin-bottom: 10px;
 `;
 
 const SlideColContainer = styled(Col)`
   transition: margin 0.5s;
+
+  @media (min-width: 992px) {
+    max-height: 88vh;
+    overflow-y: auto;
+  }
+`;
+
+const FixedHeightCol = styled(Col)`
+  @media (min-width: 992px) {
+    max-height: 88vh;
+    overflow-y: auto;
+  }
 `;
 
 // Cellery: 收合「顯示課表」按鈕
@@ -426,7 +439,10 @@ class App extends Component {
               />
             </SlideColContainer>
 
-            <Col className='d-flex flex-column' id='schedule-setting'>
+            <FixedHeightCol
+              className='d-flex flex-column'
+              id='schedule-setting'
+            >
               <SelectorSetting
                 isCollapsed={isCollapsed}
                 currentTab={currentTab}
@@ -440,7 +456,7 @@ class App extends Component {
                 convertVersion={this.convertVersion}
                 searchTimeSlot={searchTimeSlot}
               />
-            </Col>
+            </FixedHeightCol>
           </Row>
         </MainContent>
       </>

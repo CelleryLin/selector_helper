@@ -36,7 +36,7 @@ class Announcement extends Component {
   render() {
     const { latestCourseHistoryData, convertVersion } = this.props;
     return (
-      <Card className='h-100 mb-3'>
+      <Card>
         <Card.Header className='text-center'>
           <Card.Title className='fw-bolder mb-0 p-2'>
             🙈中山大學選課小助手 {announcementData.version}

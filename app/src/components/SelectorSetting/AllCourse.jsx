@@ -9,8 +9,11 @@ import { courseDataNameMap, courseDayName } from '../../config';
 
 const StyledCardBody = styled(Card.Body)`
   height: 100%;
-  min-height: 65vh;
   padding: 0;
+
+  @media (max-width: 992px) {
+    min-height: 65vh;
+  }
 `;
 
 class AllCourse extends Component {
@@ -276,7 +279,7 @@ class AllCourse extends Component {
     } = this.state;
 
     return (
-      <Card className='h-100 mb-3 pb-2'>
+      <Card className='h-100'>
         <Card.Header className='text-center'>
           <Card.Title className='fw-bolder mb-0 p-2'>所有課程</Card.Title>
           <Card.Subtitle className='mb-0 p-2'>

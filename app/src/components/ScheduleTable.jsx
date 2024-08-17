@@ -124,7 +124,7 @@ class ScheduleTable extends Component {
 
     return (
       <TableContainerComponent className='table-responsive'>
-        <StyledTable className='table table-bordered border-white border-5 table-secondary text-center'>
+        <StyledTable className='table table-bordered border-white border-5 table-secondary text-center mb-0'>
           <thead>
             <tr>
               <HeaderCell>期</HeaderCell>

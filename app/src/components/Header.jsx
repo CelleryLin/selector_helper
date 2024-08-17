@@ -208,7 +208,7 @@ class Header extends Component {
         variant='dark'
       >
         <Container fluid>
-          <Navbar.Brand className='p-0' href='#'>
+          <Navbar.Brand className='p-0 d-block d-md-none d-lg-block' href='#'>
             <img
               src={Banner}
               height='40'
@@ -276,7 +276,9 @@ class Header extends Component {
                         tab.title === currentTab ? 'px-3 active' : 'px-3'
                       }
                     >
-                      {tab.icon}
+                      <span className='d-block d-md-none d-xl-block'>
+                        {tab.icon}
+                      </span>
                       <span className='ms-2'>{tab.title}</span>
                     </StyledNavLink>
                   </Nav.Item>
