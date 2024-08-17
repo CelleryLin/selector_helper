@@ -58,6 +58,8 @@ const StyledLink = styled.a`
 
 const StyledPopover = styled(Popover)`
   &.popover {
+    // whats2000: 正式修正彈出視窗位置抖動問題
+    position: fixed;
     max-width: 400px;
   }
 `;
@@ -122,9 +124,7 @@ class Item extends Component {
    */
   handleTogglePopover = (show) => {
     // Cellery: 延遲顯示彈出視窗防止閃爍
-    setTimeout(() => {
-      this.setState({ showPopover: show });
-    }, 50);
+    this.setState({ showPopover: show });
   };
 
   /**
@@ -326,8 +326,11 @@ class Item extends Component {
             trigger={['hover', 'focus']}
             placement={isCollapsed ? 'bottom' : placement}
             overlay={
-              <StyledPopover id={`pop-info-${course['Name']}`}>
-                {showPopover ? this.renderPopover() : <></>}
+              <StyledPopover
+                id={`pop-info-${course['Name']}`}
+                className={showPopover ? '' : 'd-none'}
+              >
+                {this.renderPopover()}
               </StyledPopover>
             }
             onToggle={(show) => this.handleTogglePopover(show)}

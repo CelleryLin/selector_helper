@@ -85,6 +85,8 @@ class CourseBlock extends Component {
       boxShadow: isHover
         ? `0 0 0 0.25rem ${websiteColor.boxShadowColor}`
         : 'none',
+      // whats2000: 字體大小調整
+      fontSize: '0.75rem',
     };
 
     return (
@@ -95,7 +97,9 @@ class CourseBlock extends Component {
         style={courseBlockStyle}
       >
         <span className='d-block fw-bold'>{course['Name']}</span>
-        <span>{course['Room']}</span>
+        {course['Room'].split('\n').map((room, index) => (
+          <span key={`room-${index}`}>{room}</span>
+        ))}
         <DeleteButton onClickCapture={this.handleDeleteCourse}>
           <Trash3 size={10} />
         </DeleteButton>
