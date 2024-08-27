@@ -261,7 +261,7 @@ class FilterRow extends Component {
                 {
                   Object.keys(selected).filter(
                     (key) =>
-                      key !== 'active' && key !== 'include' && selected[key],
+                      key !== 'active' && key !== 'filterLogic' && selected[key],
                   ).length
                 }{' '}
                 項
