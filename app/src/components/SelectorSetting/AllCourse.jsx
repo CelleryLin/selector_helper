@@ -151,19 +151,27 @@ class AllCourse extends Component {
    * @returns {boolean} 如果匹配，返回 true
    */
   applyTextFilter = (course, filterName, filter) => {
+    // console.log(filter);
     const courseValue = course[courseDataNameMap[filterName]]?.toLowerCase();
-    const isInclude = filter.include === undefined ? true : filter.include;
+    const filterLogic = filter.filterLogic === undefined ? 'include' : filter.filterLogic; // equal, include, exclude
     // 使用逗號或空格分割每個組
     const filterGroups = filter.value.toLowerCase().split(/[，,]/);
 
     return filterGroups.some((group) => {
       // 使用空格分割每個關鍵字
       const keywords = group.trim().split(/\s+/);
-      return keywords.every((keyword) =>
-        isInclude
-          ? courseValue.includes(keyword)
-          : !courseValue.includes(keyword),
-      );
+      return keywords.every((keyword) => {
+        if (filterLogic === 'equal') {
+          return courseValue === keyword;
+        }
+        if (filterLogic === 'include') {
+          return courseValue.includes(keyword);
+        }
+        if (filterLogic === 'exclude') {
+          return !courseValue.includes(keyword);
+        }
+        return false;
+      });
     });
   };
 
@@ -176,29 +184,56 @@ class AllCourse extends Component {
    */
   applyTimeFilter = (course, filterName, filter) => {
     // 檢查是否包含或排除
-    const isInclude = filter.include === undefined ? true : filter.include;
+    const filterLogic = filter.filterLogic === undefined ? 'include' : filter.filterLogic;
+    const isInclude = undefined;
 
     if (filterName === '星期') {
-      // 檢查是否有任何一天匹配
-      const daysMatched = courseDayName.some((day) => {
-        return filter[day] && course[day];
-      });
-      return isInclude ? daysMatched : !daysMatched;
+      if (filterLogic !== 'equal') {
+        // 檢查是否有任何一天匹配
+        const daysMatched = courseDayName.some((day) => {
+          return filter[day] && course[day];
+        });
+        return filterLogic === 'include' ? daysMatched : !daysMatched;
+      }
+      else {
+        // 檢查是否有所有天匹配
+        const daysMatched = courseDayName.every((day) => {
+          return (filter[day] === true) === (course[day] !== '');
+        });
+        return daysMatched;
+      }
+      
     }
 
     if (filterName === '節次') {
-      // 檢查是否有任何一節匹配
-      let periodsMatched = false;
-      courseDayName.forEach((day) => {
-        if (course[day]) {
-          periodsMatched =
-            periodsMatched ||
-            course[day].split('').some((period) => {
-              return filter[period];
-            });
-        }
-      });
-      return isInclude ? periodsMatched : !periodsMatched;
+      if (filterLogic !== 'equal') {
+        // 檢查是否有任何一節匹配
+        let periodsMatched = false;
+        courseDayName.forEach((day) => {
+          if (course[day]) {
+            periodsMatched =
+              periodsMatched ||
+              course[day].split('').some((period) => {
+                return filter[period];
+              });
+          }
+        });
+        return filterLogic === 'include' ? periodsMatched : !periodsMatched;
+      }
+      else {
+        // 檢查是否有所有節次匹配
+        let periodsMatched = true;
+        let filterPeriods = Object.keys(filter).filter((key) => key !== 'active' && key !== 'filterLogic' && filter[key]).sort().join('');
+        // console.log(filterPeriods);
+        courseDayName.forEach((day) => {
+          if (course[day]) {
+            periodsMatched =
+              periodsMatched &&
+              course[day].split('').sort().join('') === filterPeriods;
+          }
+        });
+        return periodsMatched;
+      }
     }
 
     throw new Error(
@@ -214,14 +249,14 @@ class AllCourse extends Component {
    * @returns {boolean} 如果匹配，返回 true
    */
   applyOptionFilter = (course, filterName, filter) => {
+    // equal method is not implemented
+    let isInclude = filter.filterLogic === 'include' ? 'include' : 'exclude';
     const courseValue = course[courseDataNameMap[filterName]]?.toString();
     let matched = Object.keys(filter).some((option) => {
       if (option === 'active' || option === 'include') return false;
       return filter[option] && courseValue === option;
     });
-    return (filter.include === undefined ? true : filter.include)
-      ? matched
-      : !matched;
+    return isInclude ? matched : !matched;
   };
 
   /**

@@ -118,7 +118,7 @@ class FilterRow extends Component {
       ...this.props.advancedFilters,
       [filterName]: {
         ...this.props.advancedFilters[filterName],
-        include: mode === 'include',
+        filterLogic: mode,
       },
     };
 
@@ -133,7 +133,7 @@ class FilterRow extends Component {
     // 創建一個新的選中狀態對象，將所有選項設為選中
     const selected = {
       active: this.props.advancedFilters[filterName]?.active ?? false,
-      include: this.props.advancedFilters[filterName]?.include ?? true,
+      filterLogic: this.props.advancedFilters[filterName]?.filterLogic ?? 'include',
     };
     this.props.filterOptions[filterName].options.forEach((option) => {
       selected[option] = true;
@@ -159,7 +159,7 @@ class FilterRow extends Component {
       ...this.props.advancedFilters,
       [filterName]: {
         active: this.props.advancedFilters[filterName]?.active ?? false,
-        include: this.props.advancedFilters[filterName]?.include ?? true,
+        filterLogic: this.props.advancedFilters[filterName]?.filterLogic ?? 'include',
       },
     };
 
@@ -235,7 +235,7 @@ class FilterRow extends Component {
 
     const selected = advancedFilters[filterName] || {};
     const textInput = advancedFilters[filterName]?.value || '';
-    const include = advancedFilters[filterName]?.include ?? true;
+    const filterLogic = advancedFilters[filterName]?.filterLogic ?? 'include';
 
     return (
       <StyledFilterRow>
@@ -246,8 +246,9 @@ class FilterRow extends Component {
             onChange={(e) =>
               this.handleFilterModeChange(filterName, e.target.value)
             }
-            value={include ? 'include' : 'exclude'}
+            value={filterLogic}
           >
+            <option value='equal'>等於</option>
             <option value='include'>包含</option>
             <option value='exclude'>不包含</option>
           </Form.Select>
