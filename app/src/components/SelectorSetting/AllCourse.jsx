@@ -185,7 +185,6 @@ class AllCourse extends Component {
   applyTimeFilter = (course, filterName, filter) => {
     // 檢查是否包含或排除
     const filterLogic = filter.filterLogic === undefined ? 'include' : filter.filterLogic;
-    const isInclude = undefined;
 
     if (filterName === '星期') {
       if (filterLogic !== 'equal') {
