@@ -53,7 +53,7 @@ export const announcementData = {
       <a href='https://github.com/whats2000/NSYSUCourseAPI'>中山課程開放API</a>
     </>,
   ],
-  termsofuse: [<>當您使用本網站時，即表示您同意<a href='https://github.com/CelleryLin/selector_helper/term_of_use.md' target='_blank'>使用條款</a></>],
+  termsofuse: [<>當您使用本網站時，即表示您同意<a href='https://github.com/CelleryLin/selector_helper/blob/main/term_of_use.md' target='_blank'>使用條款</a></>],
   githubUrl: 'https://github.com/CelleryLin/selector_helper/',
   contactEmail: 'yochen0123@gmail.com',
   copyright: [
