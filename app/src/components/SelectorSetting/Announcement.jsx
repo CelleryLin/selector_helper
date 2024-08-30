@@ -125,6 +125,9 @@ class Announcement extends Component {
         </Card.Body>
         <Card.Footer className='text-center text-muted fst-italic fw-light'>
           <Card.Text className='text-center'>
+            {announcementData.termsofuse[0]}
+          </Card.Text>
+          <Card.Text className='text-center'>
             {announcementData.copyright.map((text) => {
               return (
                 <small key={text}>
