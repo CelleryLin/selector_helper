@@ -50,6 +50,7 @@ function ListInformation({
   selectedCourses,
   toggleElementEnable,
 }) {
+  // const [displayConflictCourses, setDisplayConflictCourses] = useState(false);
   const [show, setShow] = useState(false);
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -64,6 +65,10 @@ function ListInformation({
 
   const handleCloseOrderElement = () => setShow(false);
   const handleToggleOrderElement = () => setShow(!show);
+  
+  // const handleShowSelectedCourses = () => {
+  //   setDisplayConflictCourses(prevState => !prevState);
+  // };
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
@@ -89,6 +94,16 @@ function ListInformation({
           <InputGroup.Text>{totalCredits} 學分</InputGroup.Text>
           <InputGroup.Text>{totalHours} 小時</InputGroup.Text>
         </InputGroup>
+        {/* <StyledButton
+          id='toggle-show-conflict-courses'
+          type='checkbox'
+          variant='outline-success'
+          onClick={handleShowSelectedCourses}
+          value='show'
+          checked={displayConflictCourses}
+        >
+          {displayConflictCourses ? '隱藏衝堂' : '顯示衝堂'}
+        </StyledButton> */}
         <StyledButton
           className='ms-auto'
           variant='success'

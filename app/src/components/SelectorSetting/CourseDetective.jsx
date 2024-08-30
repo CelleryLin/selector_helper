@@ -185,7 +185,7 @@ class CourseDetective extends Component {
     const {
       selectedCourses,
       isCollapsed,
-      displayConflictCourses,
+      // displayConflictCourses,
       detectTimeConflict,
       calculateTotalCreditsAndHours,
       hoveredCourseId,
@@ -193,7 +193,6 @@ class CourseDetective extends Component {
       onCourseHover,
     } = this.props;
     const { orderElements, filteredCourses } = this.state;
-
     return (
       <>
         <Card className='h-100'>
@@ -221,7 +220,7 @@ class CourseDetective extends Component {
               isCollapsed={isCollapsed}
               courses={filteredCourses}
               selectedCourses={selectedCourses}
-              displayConflictCourses={displayConflictCourses}
+              displayConflictCourses={true} // Cellery: restrict to true to avoid not coloring conflict courses to yellow
               detectTimeConflict={detectTimeConflict}
               hoveredCourseId={hoveredCourseId}
               onCourseSelect={onCourseSelect}
