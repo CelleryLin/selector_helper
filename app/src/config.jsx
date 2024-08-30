@@ -7,7 +7,7 @@ import exportCourse6 from './images/ExportCourse6.png';
 import exportCourse7 from './images/ExportCourse7.png';
 
 export const announcementData = {
-  version: 'v5.0.0',
+  version: 'v5.0.1',
   feedbackFormUrl: 'https://forms.gle/gFBZDgkSbj85zukP6',
   description: [
     <>
@@ -65,8 +65,11 @@ export const announcementData = {
 export const entryNotificationConfig = {
   version: announcementData.version,
   description:
-    '感謝您使用這個系統，您寶貴的意見我們都有收到，並會改善更新，感謝各位支持與回饋了！',
-  updates: announcementData.updates,
+    <>
+      我們已更新使用條款，當您使用本網站時，即表示您同意
+      <a href='https://github.com/CelleryLin/selector_helper/blob/main/term_of_use.md' target='_blank' rel='noreferrer noopener'>使用條款</a>
+    </>,
+  updates: [<a href='https://github.com/CelleryLin/selector_helper/blob/main/term_of_use.md' target='_blank' rel='noreferrer noopener'>使用條款</a>],
   feedbackFormUrl: announcementData.feedbackFormUrl,
 };
 
