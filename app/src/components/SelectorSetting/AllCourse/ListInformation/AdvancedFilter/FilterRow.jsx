@@ -133,7 +133,8 @@ class FilterRow extends Component {
     // 創建一個新的選中狀態對象，將所有選項設為選中
     const selected = {
       active: this.props.advancedFilters[filterName]?.active ?? false,
-      filterLogic: this.props.advancedFilters[filterName]?.filterLogic ?? 'include',
+      filterLogic:
+        this.props.advancedFilters[filterName]?.filterLogic ?? 'include',
     };
     this.props.filterOptions[filterName].options.forEach((option) => {
       selected[option] = true;
@@ -159,7 +160,8 @@ class FilterRow extends Component {
       ...this.props.advancedFilters,
       [filterName]: {
         active: this.props.advancedFilters[filterName]?.active ?? false,
-        filterLogic: this.props.advancedFilters[filterName]?.filterLogic ?? 'include',
+        filterLogic:
+          this.props.advancedFilters[filterName]?.filterLogic ?? 'include',
       },
     };
 
@@ -261,7 +263,9 @@ class FilterRow extends Component {
                 {
                   Object.keys(selected).filter(
                     (key) =>
-                      key !== 'active' && key !== 'filterLogic' && selected[key],
+                      key !== 'active' &&
+                      key !== 'filterLogic' &&
+                      selected[key],
                   ).length
                 }{' '}
                 項

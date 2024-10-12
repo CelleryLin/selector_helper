@@ -63,9 +63,7 @@ class TermofUse extends Component {
             </TextWithIcon>
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          testestestestsestsetsetsetset
-        </Modal.Body>
+        <Modal.Body>testestestestsestsetsetsetset</Modal.Body>
         <Modal.Footer>
           <Button variant='secondary' onClick={this.handleClose}>
             關閉

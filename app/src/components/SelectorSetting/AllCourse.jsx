@@ -153,7 +153,8 @@ class AllCourse extends Component {
   applyTextFilter = (course, filterName, filter) => {
     // console.log(filter);
     const courseValue = course[courseDataNameMap[filterName]]?.toLowerCase();
-    const filterLogic = filter.filterLogic === undefined ? 'include' : filter.filterLogic; // equal, include, exclude
+    const filterLogic =
+      filter.filterLogic === undefined ? 'include' : filter.filterLogic; // equal, include, exclude
     // 使用逗號或空格分割每個組
     const filterGroups = filter.value.toLowerCase().split(/[，,]/);
 
@@ -184,7 +185,8 @@ class AllCourse extends Component {
    */
   applyTimeFilter = (course, filterName, filter) => {
     // 檢查是否包含或排除
-    const filterLogic = filter.filterLogic === undefined ? 'include' : filter.filterLogic;
+    const filterLogic =
+      filter.filterLogic === undefined ? 'include' : filter.filterLogic;
 
     if (filterName === '星期') {
       if (filterLogic !== 'equal') {
@@ -193,15 +195,13 @@ class AllCourse extends Component {
           return filter[day] && course[day];
         });
         return filterLogic === 'include' ? daysMatched : !daysMatched;
-      }
-      else {
+      } else {
         // 檢查是否有所有天匹配
         const daysMatched = courseDayName.every((day) => {
           return (filter[day] === true) === (course[day] !== '');
         });
         return daysMatched;
       }
-      
     }
 
     if (filterName === '節次') {
@@ -218,11 +218,15 @@ class AllCourse extends Component {
           }
         });
         return filterLogic === 'include' ? periodsMatched : !periodsMatched;
-      }
-      else {
+      } else {
         // 檢查是否有所有節次匹配
         let periodsMatched = true;
-        let filterPeriods = Object.keys(filter).filter((key) => key !== 'active' && key !== 'filterLogic' && filter[key]).sort().join('');
+        let filterPeriods = Object.keys(filter)
+          .filter(
+            (key) => key !== 'active' && key !== 'filterLogic' && filter[key],
+          )
+          .sort()
+          .join('');
         // console.log(filterPeriods);
         courseDayName.forEach((day) => {
           if (course[day]) {

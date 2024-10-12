@@ -65,7 +65,7 @@ function ListInformation({
 
   const handleCloseOrderElement = () => setShow(false);
   const handleToggleOrderElement = () => setShow(!show);
-  
+
   // const handleShowSelectedCourses = () => {
   //   setDisplayConflictCourses(prevState => !prevState);
   // };
