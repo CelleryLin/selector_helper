@@ -1,4 +1,4 @@
-# 中山大學選課助手 React 版
+# 中山大學選課助手 Retrieval 實驗版
 ## 進入網頁
 https://CelleryLin.github.io/selector_helper/
 

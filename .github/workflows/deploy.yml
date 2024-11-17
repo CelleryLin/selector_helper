@@ -17,8 +17,8 @@ jobs:
         id: cache-node-modules
         uses: actions/cache@v3
         with:
-          path: app/node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('app/package-lock.json') }}
+          path: app-old/node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('app-old/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-modules-
 
@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm install
-        working-directory: app
+        working-directory: app-old
 
       - name: Configure Git user
         run: |
@@ -42,4 +42,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
-        working-directory: app
+        working-directory: app-old
