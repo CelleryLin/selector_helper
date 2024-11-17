@@ -94,7 +94,7 @@ class CoursesList extends Component<CoursesListProps> {
         data={dataWithHeader}
         itemContent={this.renderItem}
         topItemCount={1}
-      ></Virtuoso>
+      />
     );
   }
 }

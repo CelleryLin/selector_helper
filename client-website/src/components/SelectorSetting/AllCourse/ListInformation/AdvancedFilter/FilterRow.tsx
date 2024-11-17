@@ -205,7 +205,11 @@ class FilterRow extends Component<FilterRowProps, FilterRowState> {
     const selected = { ...(this.props.advancedFilters[filterName] || {}) };
 
     // 更新選項的選中狀態
-    selected.activeOptions[option] = !selected.activeOptions[option];
+    if (selected.activeOptions[option]) {
+      delete selected.activeOptions[option];
+    } else {
+      selected.activeOptions[option] = true;
+    }
 
     // 創建整個 advancedFilters 的副本並更新相應的篩選器
     const updatedAdvancedFilters = {
@@ -294,15 +298,7 @@ class FilterRow extends Component<FilterRowProps, FilterRowState> {
             <Dropdown autoClose='outside'>
               <StyledDropdownToggle variant='success'>
                 {!selected.active ? '未啟用' : '選擇了'}{' '}
-                {
-                  (Object.keys(selected) as (keyof typeof selected)[]).filter(
-                    (key) =>
-                      key !== 'active' &&
-                      key !== 'filterLogic' &&
-                      selected[key],
-                  ).length
-                }{' '}
-                項
+                {Object.keys(selected.activeOptions).length} 項
               </StyledDropdownToggle>
               <StyledDropdownMenu>
                 <Dropdown.Item

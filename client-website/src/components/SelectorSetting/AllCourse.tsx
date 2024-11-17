@@ -236,23 +236,22 @@ class AllCourse extends Component<AllCourseProps, AllCourseState> {
   applyTimeFilter = (
     course: Course,
     filterName: string,
-    filter: any,
+    filter: AdvancedFilterElement,
   ): boolean => {
     // 檢查是否包含或排除
-    const filterLogic =
-      filter.filterLogic === undefined ? 'include' : filter.filterLogic;
+    const filterLogic = filter.filterLogic ?? 'include'; // equal, include, exclude
 
     if (filterName === '星期') {
       if (filterLogic !== 'equal') {
         // 檢查是否有任何一天匹配
         const daysMatched = courseDayName.some((day) => {
-          return filter[day] && course[day];
+          return filter.activeOptions[day] && course[day];
         });
         return filterLogic === 'include' ? daysMatched : !daysMatched;
       } else {
         // 檢查是否有所有天匹配
         return courseDayName.every((day) => {
-          return (filter[day] === true) === (course[day] !== '');
+          return filter.activeOptions[day] === (course[day] !== '');
         });
       }
     }
@@ -266,7 +265,7 @@ class AllCourse extends Component<AllCourseProps, AllCourseState> {
             periodsMatched =
               periodsMatched ||
               course[day].split('').some((period) => {
-                return filter[period];
+                return filter.activeOptions[period];
               });
           }
         });
@@ -274,10 +273,8 @@ class AllCourse extends Component<AllCourseProps, AllCourseState> {
       } else {
         // 檢查是否有所有節次匹配
         let periodsMatched = true;
-        let filterPeriods = Object.keys(filter)
-          .filter(
-            (key) => key !== 'active' && key !== 'filterLogic' && filter[key],
-          )
+        let filterPeriods = Object.keys(filter.activeOptions)
+          .filter((period) => filter.activeOptions[period])
           .sort()
           .join('');
         // console.log(filterPeriods);
@@ -307,14 +304,13 @@ class AllCourse extends Component<AllCourseProps, AllCourseState> {
   applyOptionFilter = (
     course: Course,
     filterName: FilterOption,
-    filter: any,
+    filter: AdvancedFilterElement,
   ): boolean => {
     // equal method is not implemented
     let isInclude = filter.filterLogic === 'include' ? 'include' : 'exclude';
     const courseValue = course[courseDataNameMap[filterName]]?.toString();
-    let matched = Object.keys(filter).some((option) => {
-      if (option === 'active' || option === 'include') return false;
-      return filter[option] && courseValue === option;
+    let matched = Object.keys(filter.activeOptions).some((option) => {
+      return filter.activeOptions[option] && courseValue === option;
     });
     return isInclude ? matched : !matched;
   };

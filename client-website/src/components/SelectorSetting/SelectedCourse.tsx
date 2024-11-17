@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { Card, Col } from 'react-bootstrap';
 import ListInformation from './SelectedCourse/ListInformation';
 import styled from 'styled-components';
+import ReactGA from 'react-ga4';
+
 import CoursesList from './SelectedCourse/CoursesList';
 import ExportModal from './SelectedCourse/ExportModal';
 import HowToUseModal from './SelectedCourse/HowToUseModal';
 import ImportModal from './SelectedCourse/ImportModal';
-import ReactGA from 'react-ga4';
 
 const StyledCardBody = styled(Card.Body)`
   height: 100%;
