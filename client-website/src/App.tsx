@@ -11,7 +11,7 @@ import ScheduleTable from './components/ScheduleTable';
 import SelectorSetting from './components/SelectorSetting';
 import EntryNotification from './components/EntryNotification';
 import type { CourseDataFilesInfo, TimeSlot } from './types';
-import { courseData } from './config';
+import { COURSE_DATA_API } from './config';
 
 const TRACKING_ID = 'G-38C3BQTTSC'; // your Measurement ID
 
@@ -99,7 +99,7 @@ class App extends Component<{}, AppState> {
       this.endLoading();
     };
 
-    fetch(courseData.targetAPI)
+    fetch(COURSE_DATA_API.targetAPI)
       .then((response) => response.json())
       .then((files: CourseDataFilesInfo[] | undefined) => {
         if (!(files && files.length)) throw new Error('抓取課程資料失敗。');

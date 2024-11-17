@@ -11,7 +11,8 @@ import {
   Envelope,
 } from 'react-bootstrap-icons';
 import styled from 'styled-components';
-import { announcementData } from '../../config.js';
+
+import { ANNOUNCEMENT_DATA } from '../../config';
 
 const TextWithIcon = styled(Card.Text)`
   display: flex;
@@ -44,7 +45,7 @@ class Announcement extends Component<AnnouncementProps> {
       <Card>
         <Card.Header className='text-center'>
           <Card.Title className='fw-bolder mb-0 p-2'>
-            🙈中山大學選課小助手 {announcementData.version}
+            🙈中山大學選課小助手 {ANNOUNCEMENT_DATA.version}
           </Card.Title>
         </Card.Header>
         <Card.Body>
@@ -64,11 +65,11 @@ class Announcement extends Component<AnnouncementProps> {
               <ul>
                 <li>
                   <a
-                    href={announcementData.feedbackFormUrl}
+                    href={ANNOUNCEMENT_DATA.feedbackFormUrl}
                     target='_blank'
                     rel='noreferrer'
                   >
-                    {announcementData.feedbackFormUrl}
+                    {ANNOUNCEMENT_DATA.feedbackFormUrl}
                   </a>
                 </li>
               </ul>
@@ -77,25 +78,25 @@ class Announcement extends Component<AnnouncementProps> {
               <TextWithIcon>
                 <InfoCircle /> 使用須知：
               </TextWithIcon>
-              <ul>{this.renderList(announcementData.description)}</ul>
+              <ul>{this.renderList(ANNOUNCEMENT_DATA.description)}</ul>
             </Col>
             <Col lg={6} md={6}>
               <TextWithIcon>
                 <ArrowUpCircle /> 更新內容：
               </TextWithIcon>
-              <ul>{this.renderList(announcementData.updates)}</ul>
+              <ul>{this.renderList(ANNOUNCEMENT_DATA.updates)}</ul>
             </Col>
             <Col lg={6} md={6}>
               <TextWithIcon>
                 <Gear /> 主要功能：
               </TextWithIcon>
-              <ul>{this.renderList(announcementData.features)}</ul>
+              <ul>{this.renderList(ANNOUNCEMENT_DATA.features)}</ul>
             </Col>
             <Col lg={6} md={6}>
               <TextWithIcon>
                 <ExclamationCircle /> 已知問題：
               </TextWithIcon>
-              <ul>{this.renderList(announcementData.knownIssues)}</ul>
+              <ul>{this.renderList(ANNOUNCEMENT_DATA.knownIssues)}</ul>
             </Col>
             <Col lg={6} md={6}>
               <TextWithIcon>
@@ -104,7 +105,7 @@ class Announcement extends Component<AnnouncementProps> {
               <ul>
                 <li>
                   <a
-                    href={announcementData.githubUrl}
+                    href={ANNOUNCEMENT_DATA.githubUrl}
                     target='_blank'
                     rel='noreferrer'
                   >
@@ -120,8 +121,8 @@ class Announcement extends Component<AnnouncementProps> {
               <ul>
                 <li>
                   總負責人：
-                  <a href={`mailto:${announcementData.contactEmail}`}>
-                    {announcementData.contactEmail}
+                  <a href={`mailto:${ANNOUNCEMENT_DATA.contactEmail}`}>
+                    {ANNOUNCEMENT_DATA.contactEmail}
                   </a>
                 </li>
               </ul>
@@ -130,10 +131,10 @@ class Announcement extends Component<AnnouncementProps> {
         </Card.Body>
         <Card.Footer className='text-center text-muted fst-italic fw-light'>
           <Card.Text className='text-center'>
-            {announcementData.termsofuse[0]}
+            {ANNOUNCEMENT_DATA.termsofuse[0]}
           </Card.Text>
           <Card.Text className='text-center'>
-            {announcementData.copyright.map((text) => {
+            {ANNOUNCEMENT_DATA.copyright.map((text) => {
               return (
                 <small key={text}>
                   {text}

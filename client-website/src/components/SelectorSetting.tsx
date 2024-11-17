@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 
+import type { TimeSlot } from '@/types';
+import { COURSE_DAY_NAMES, DEFAULT_FILTER_OPTIONS } from '../config';
 import AllCourse from './SelectorSetting/AllCourse';
 import RequiredCourse from './SelectorSetting/RequiredCourse';
 import CourseDetective from './SelectorSetting/CourseDetective';
 import Announcement from './SelectorSetting/Announcement';
 import SelectedCourse from './SelectorSetting/SelectedCourse';
-
-import { courseDayName, defaultFilterOptions } from '../config.js';
-import { TimeSlot } from '../types';
 
 interface SelectorSettingProps {
   isCollapsed: boolean;
@@ -24,7 +23,7 @@ interface SelectorSettingProps {
 }
 
 interface SelectorSettingState {
-  filterOptions: typeof defaultFilterOptions;
+  filterOptions: typeof DEFAULT_FILTER_OPTIONS;
 }
 
 class SelectorSetting extends Component<
@@ -32,7 +31,7 @@ class SelectorSetting extends Component<
   SelectorSettingState
 > {
   state = {
-    filterOptions: defaultFilterOptions,
+    filterOptions: DEFAULT_FILTER_OPTIONS,
   };
 
   componentDidMount() {
@@ -89,7 +88,7 @@ class SelectorSetting extends Component<
 
     selectedCourses.forEach((course) => {
       totalCredits += parseFloat(course['Credit'] ?? '0.0');
-      courseDayName.forEach((day) => {
+      COURSE_DAY_NAMES.forEach((day) => {
         totalHours += course[day]?.length ?? 0;
       });
     });
@@ -122,7 +121,7 @@ class SelectorSetting extends Component<
    * @returns {boolean} 如果衝突，返回 true
    */
   isConflict = (course1: Course, course2: Course): boolean => {
-    for (let day of courseDayName) {
+    for (let day of COURSE_DAY_NAMES) {
       if (course1[day] && course2[day]) {
         const time1 = course1[day].split('');
         const time2 = course2[day].split('');

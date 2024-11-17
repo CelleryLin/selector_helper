@@ -16,14 +16,15 @@ import {
   Search,
 } from 'react-bootstrap-icons';
 import styled from 'styled-components';
-import { websiteColor } from '../config.js';
 import ReactGA from 'react-ga4';
-import Banner from './banner.svg';
-import type { CourseDataFilesInfo } from '../types';
+
+import type { CourseDataFilesInfo } from '@/types';
+import { WEBSITE_COLOR } from '../config';
+import Banner from '../assets/banner.svg';
 
 // 自定義 Navbar 樣式
 const StyledNavbar = styled(Navbar)`
-  background-color: ${websiteColor.mainColor};
+  background-color: ${WEBSITE_COLOR.mainColor};
   transition: top 0.3s; // 添加過渡效果
 `;
 
@@ -82,7 +83,7 @@ const StyledNavDropdown = styled(NavDropdown)`
     .dropdown-item {
       &:hover {
         color: white;
-        background-color: ${websiteColor.mainDarkerColor};
+        background-color: ${WEBSITE_COLOR.mainDarkerColor};
       }
     }
   }

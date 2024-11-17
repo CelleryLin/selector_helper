@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card } from 'react-bootstrap';
 import { Virtuoso } from 'react-virtuoso';
+
 import Header from './AllCourseList/Header';
 import Item from './AllCourseList/Item';
 

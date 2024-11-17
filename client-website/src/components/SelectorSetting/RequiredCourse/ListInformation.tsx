@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, Button, Form, InputGroup, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
 
-import { defaultFilterOptions, websiteColor } from '../../../config';
+import { DEFAULT_FILTER_OPTIONS, WEBSITE_COLOR } from '@/config';
 
 const StyledSelect = styled(Form.Select)`
   margin-right: 10px;
@@ -15,12 +15,12 @@ const StyledSelect = styled(Form.Select)`
 
 const StyledButton = styled(Button)`
   margin-left: auto;
-  background-color: ${websiteColor.mainColor};
-  border-color: ${websiteColor.mainColor};
+  background-color: ${WEBSITE_COLOR.mainColor};
+  border-color: ${WEBSITE_COLOR.mainColor};
 
   &:hover {
-    background-color: ${websiteColor.mainDarkerColor};
-    border-color: ${websiteColor.mainDarkerColor};
+    background-color: ${WEBSITE_COLOR.mainDarkerColor};
+    border-color: ${WEBSITE_COLOR.mainDarkerColor};
   }
 `;
 
@@ -36,7 +36,7 @@ interface ListInformationProps {
     totalCredits: number;
     totalHours: number;
   };
-  filterOptions: typeof defaultFilterOptions;
+  filterOptions: typeof DEFAULT_FILTER_OPTIONS;
   requiredCourseFilters: {
     [key in Partial<keyof Course>]?: string;
   };

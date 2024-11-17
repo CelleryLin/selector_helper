@@ -19,17 +19,17 @@ import { SortNumericUp } from 'react-bootstrap-icons';
 import styled from 'styled-components';
 
 import { SortableItem } from './ListInformation/SortableItem';
-import { courseDetectiveElements, websiteColor } from '../../../config';
+import { COURSE_DETECTIVE_ELEMENTS, WEBSITE_COLOR } from '@/config';
 
 const StyledButton = styled(Button)`
-  background-color: ${websiteColor.mainColor};
-  border-color: ${websiteColor.mainColor};
+  background-color: ${WEBSITE_COLOR.mainColor};
+  border-color: ${WEBSITE_COLOR.mainColor};
   display: flex;
   align-items: center;
 
   &:hover {
-    background-color: ${websiteColor.mainDarkerColor};
-    border-color: ${websiteColor.mainDarkerColor};
+    background-color: ${WEBSITE_COLOR.mainDarkerColor};
+    border-color: ${WEBSITE_COLOR.mainDarkerColor};
   }
 `;
 
@@ -47,7 +47,7 @@ const StyledTextRow = styled.div`
 
 interface ListInformationProps {
   elements: { id: string; content: string; enabled: boolean }[];
-  setElements: (newOrderElements: typeof courseDetectiveElements) => void;
+  setElements: (newOrderElements: typeof COURSE_DETECTIVE_ELEMENTS) => void;
   calculateTotalCreditsAndHours: (selectedCourses: Set<Course>) => {
     totalCredits: number;
     totalHours: number;

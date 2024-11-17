@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Modal, Button, Form, Card } from 'react-bootstrap';
-import { entryNotificationConfig } from '../config.js';
+import { Modal, Button, Card } from 'react-bootstrap';
 import styled from 'styled-components';
-import { websiteColor } from '../config.js';
+import { Megaphone } from 'react-bootstrap-icons';
 
 const TextWithIcon = styled(Card.Text)`
   display: flex;
@@ -15,23 +14,32 @@ const TextWithIcon = styled(Card.Text)`
   }
 `;
 
-const FillFormButton = styled(Button)`
-  background-color: ${websiteColor.mainColor};
-  border-color: ${websiteColor.mainColor};
+// const FillFormButton = styled(Button)`
+//   background-color: ${websiteColor.mainColor};
+//   border-color: ${websiteColor.mainColor};
+//
+//   &:hover,
+//   &:focus {
+//     background-color: ${websiteColor.mainDarkerColor};
+//     border-color: ${websiteColor.mainDarkerColor};
+//   }
+//
+//   a {
+//     color: white;
+//     text-decoration: none;
+//   }
+// `;
 
-  &:hover,
-  &:focus {
-    background-color: ${websiteColor.mainDarkerColor};
-    border-color: ${websiteColor.mainDarkerColor};
-  }
+interface TermOfUseProps {
+  show: boolean;
+  handleClose: () => void;
+}
 
-  a {
-    color: white;
-    text-decoration: none;
-  }
-`;
+interface TermOfUseState {
+  show: boolean;
+}
 
-class TermofUse extends Component {
+class TermOfUse extends Component<TermOfUseProps, TermOfUseState> {
   state = {
     show: false,
   };
@@ -39,9 +47,9 @@ class TermofUse extends Component {
   /**
    * 渲染列表
    * @param items {string[]} 列表項目
-   * @returns {JSX.Element[]} 列表元素
+   * @returns {React.ReactNode[]} 列表元素
    */
-  renderList(items) {
+  renderList(items: string[]): React.ReactNode[] {
     return items.map((item, index) => <li key={index}>{item}</li>);
   }
 
@@ -63,7 +71,11 @@ class TermofUse extends Component {
             </TextWithIcon>
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>testestestestsestsetsetsetset</Modal.Body>
+        <Modal.Body>
+          {/* A test document */}
+          This is a test document. This is a test document. This is a test
+          document. This is a test document. This is a test document.
+        </Modal.Body>
         <Modal.Footer>
           <Button variant='secondary' onClick={this.handleClose}>
             關閉
@@ -74,4 +86,4 @@ class TermofUse extends Component {
   }
 }
 
-export default TermofUse;
+export default TermOfUse;

@@ -2,33 +2,34 @@ import { Form } from 'react-bootstrap';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import styled from 'styled-components';
-import { websiteColor } from '../../../../config.js';
 import React from 'react';
+
+import { WEBSITE_COLOR } from '@/config';
 
 const StyledFormCheckWrapper = styled.div`
   .form-check-input:checked {
-    background-color: ${websiteColor.mainColor};
-    border-color: ${websiteColor.mainColor};
+    background-color: ${WEBSITE_COLOR.mainColor};
+    border-color: ${WEBSITE_COLOR.mainColor};
   }
 
   .form-check-input:focus {
-    box-shadow: 0 0 0 0.25rem ${websiteColor.boxShadowColor};
+    box-shadow: 0 0 0 0.25rem ${WEBSITE_COLOR.boxShadowColor};
   }
 
   .form-check-input:disabled ~ .form-check-label {
-    color: ${websiteColor.mainLighterColor};
+    color: ${WEBSITE_COLOR.mainLighterColor};
   }
 
   .form-check-input:checked ~ .form-check-label::before {
-    background-color: ${websiteColor.mainColor};
+    background-color: ${WEBSITE_COLOR.mainColor};
   }
 
   .form-switch .form-check-input:checked ~ .form-check-label::before {
-    border-color: ${websiteColor.mainColor};
+    border-color: ${WEBSITE_COLOR.mainColor};
   }
 
   .form-check-label::before {
-    border-color: ${websiteColor.mainColor};
+    border-color: ${WEBSITE_COLOR.mainColor};
   }
 `;
 

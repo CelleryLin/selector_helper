@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import styled from 'styled-components';
-import { websiteColor } from '../../../config.js';
+
+import { WEBSITE_COLOR } from '@/config';
 
 const InfoButton = styled(Button)`
-  background-color: ${websiteColor.mainColor};
-  border-color: ${websiteColor.mainColor};
+  background-color: ${WEBSITE_COLOR.mainColor};
+  border-color: ${WEBSITE_COLOR.mainColor};
 
   &:hover,
   &:focus {
-    background-color: ${websiteColor.mainDarkerColor};
-    border-color: ${websiteColor.mainDarkerColor};
+    background-color: ${WEBSITE_COLOR.mainDarkerColor};
+    border-color: ${WEBSITE_COLOR.mainDarkerColor};
   }
 
   a {

@@ -11,7 +11,7 @@ import {
   FilterOption,
 } from './types';
 
-export const announcementData = {
+export const ANNOUNCEMENT_DATA = {
   version: 'v5.0.1',
   feedbackFormUrl: 'https://forms.gle/gFBZDgkSbj85zukP6',
   description: [
@@ -78,8 +78,8 @@ export const announcementData = {
   ],
 };
 
-export const entryNotificationConfig = {
-  version: announcementData.version,
+export const ENTRY_NOTIFICATION_CONFIG = {
+  version: ANNOUNCEMENT_DATA.version,
   description: (
     <>
       我們已更新使用條款，當您使用本網站時，即表示您同意
@@ -101,15 +101,15 @@ export const entryNotificationConfig = {
       使用條款
     </a>,
   ],
-  feedbackFormUrl: announcementData.feedbackFormUrl,
+  feedbackFormUrl: ANNOUNCEMENT_DATA.feedbackFormUrl,
 };
 
-export const courseData = {
+export const COURSE_DATA_API = {
   targetAPI:
     'https://api.github.com/repos/CelleryLin/selector_helper_old/contents/all_classes',
 };
 
-export const howToUseExportCode = [
+export const HOW_TO_USE_EXPORT_CODE = [
   {
     image: exportCourse1,
     description:
@@ -141,7 +141,7 @@ export const howToUseExportCode = [
   },
 ];
 
-export const courseDetectiveElements = [
+export const COURSE_DETECTIVE_ELEMENTS = [
   { id: 'liberal-arts', content: '博雅課程', enabled: true },
   { id: 'sports-fitness', content: '運動與健康(大一必修)', enabled: true },
   { id: 'sports-other', content: '運動與健康(其他)', enabled: true },
@@ -155,7 +155,7 @@ export const courseDetectiveElements = [
   { id: 'english-advanced', content: '英文高級', enabled: false },
 ];
 
-export const defaultFilterOptions: {
+export const DEFAULT_FILTER_OPTIONS: {
   [key in AdvancedFilterOption]: {
     options: string[];
     dropdown: boolean;
@@ -218,7 +218,7 @@ export const defaultFilterOptions: {
   },
 };
 
-export const timeSlot: [
+export const TIMESLOT: [
   { key: 'A'; value: '7:00\n~\n7:50' },
   { key: '1'; value: '8:10\n~\n9:00' },
   { key: '2'; value: '9:10\n~\n10:00' },
@@ -252,7 +252,7 @@ export const timeSlot: [
   { key: 'F', value: '21:05\n~\n21:55' },
 ];
 
-export const weekday: [
+export const WEEKDAY: [
   { key: 'Monday'; value: '一' },
   { key: 'Tuesday'; value: '二' },
   { key: 'Wednesday'; value: '三' },
@@ -270,7 +270,7 @@ export const weekday: [
   { key: 'Sunday', value: '日' },
 ];
 
-export const courseDataNameMap: {
+export const COURSE_DATA_NAME_MAP: {
   [key in FilterOption]: keyof Course;
 } = {
   名稱: 'Name',
@@ -298,9 +298,9 @@ export const DEFAULT_ADVANCE_FILTER: AdvancedFilterType = {
   英課: { active: false, value: '', filterLogic: 'include', activeOptions: {} },
 };
 
-export const courseDayName = weekday.map((day) => day.key);
+export const COURSE_DAY_NAMES = WEEKDAY.map((day) => day.key);
 
-export const websiteColor = {
+export const WEBSITE_COLOR = {
   mainColor: '#009e96',
   mainDarkerColor: '#008e86',
   mainLighterColor: '#b2e2df',

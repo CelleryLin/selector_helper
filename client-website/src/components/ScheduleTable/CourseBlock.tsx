@@ -1,7 +1,8 @@
 import { Component } from 'react';
 import { Trash3 } from 'react-bootstrap-icons';
 import styled from 'styled-components';
-import { websiteColor } from '../../config.js';
+
+import { WEBSITE_COLOR } from '../../config';
 
 const DeleteButton = styled.div`
   position: absolute;
@@ -9,8 +10,8 @@ const DeleteButton = styled.div`
   left: -10px;
   width: 15px;
   height: 15px;
-  background-color: ${websiteColor.mainLighterColor};
-  color: ${websiteColor.mainColor};
+  background-color: ${WEBSITE_COLOR.mainLighterColor};
+  color: ${WEBSITE_COLOR.mainColor};
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -86,11 +87,11 @@ class CourseBlock extends Component<CourseBlockProps> {
 
     const courseBlockStyle = {
       backgroundColor: isHover
-        ? websiteColor.mainColor
+        ? WEBSITE_COLOR.mainColor
         : this.getHashColor(course['Number'] + course['Name']),
       color: isHover ? 'white' : 'initial',
       boxShadow: isHover
-        ? `0 0 0 0.25rem ${websiteColor.boxShadowColor}`
+        ? `0 0 0 0.25rem ${WEBSITE_COLOR.boxShadowColor}`
         : 'none',
       // whats2000: 字體大小調整
       fontSize: '0.75rem',

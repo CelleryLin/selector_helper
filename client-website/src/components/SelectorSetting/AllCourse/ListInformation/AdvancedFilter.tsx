@@ -3,23 +3,19 @@ import { Offcanvas, Button } from 'react-bootstrap';
 import { Filter } from 'react-bootstrap-icons';
 import styled from 'styled-components';
 
-import { defaultFilterOptions, websiteColor } from '../../../../config';
+import type { AdvancedFilterOption, AdvancedFilterType } from '@/types';
+import { DEFAULT_FILTER_OPTIONS, WEBSITE_COLOR } from '@/config';
 import FilterRow from './AdvancedFilter/FilterRow';
 
-import type {
-  AdvancedFilterOption,
-  AdvancedFilterType,
-} from '../../../../types';
-
 const StyledButton = styled(Button)`
-  background-color: ${websiteColor.mainColor};
+  background-color: ${WEBSITE_COLOR.mainColor};
 
   &:hover {
-    background-color: ${websiteColor.mainDarkerColor};
+    background-color: ${WEBSITE_COLOR.mainDarkerColor};
   }
 
   &:active {
-    background-color: ${websiteColor.mainColor};
+    background-color: ${WEBSITE_COLOR.mainColor};
   }
 `;
 
@@ -32,7 +28,7 @@ const StyledFilterRow = styled.div`
 interface AdvancedFilterProps {
   advancedFilters: AdvancedFilterType;
   onAdvancedFilterChange: (filter: AdvancedFilterType) => void;
-  filterOptions: typeof defaultFilterOptions;
+  filterOptions: typeof DEFAULT_FILTER_OPTIONS;
 }
 
 interface AdvancedFilterState {

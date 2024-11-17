@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Modal, Button, Form, Card } from 'react-bootstrap';
-import { entryNotificationConfig } from '../config.js';
 import {
   Megaphone,
   FileEarmarkText,
   ArrowUpCircle,
 } from 'react-bootstrap-icons';
 import styled from 'styled-components';
-import { websiteColor } from '../config.js';
+
+import { ENTRY_NOTIFICATION_CONFIG, WEBSITE_COLOR } from '../config';
 
 const TextWithIcon = styled(Card.Text)`
   display: flex;
@@ -21,13 +21,13 @@ const TextWithIcon = styled(Card.Text)`
 `;
 
 const FillFormButton = styled(Button)`
-  background-color: ${websiteColor.mainColor};
-  border-color: ${websiteColor.mainColor};
+  background-color: ${WEBSITE_COLOR.mainColor};
+  border-color: ${WEBSITE_COLOR.mainColor};
 
   &:hover,
   &:focus {
-    background-color: ${websiteColor.mainDarkerColor};
-    border-color: ${websiteColor.mainDarkerColor};
+    background-color: ${WEBSITE_COLOR.mainDarkerColor};
+    border-color: ${WEBSITE_COLOR.mainDarkerColor};
   }
 
   a {
@@ -47,7 +47,7 @@ class EntryNotification extends Component {
 
     if (
       announcementSeen !== 'true' ||
-      versionSeen !== entryNotificationConfig.version
+      versionSeen !== ENTRY_NOTIFICATION_CONFIG.version
     ) {
       this.setState({ show: true });
     }
@@ -78,7 +78,7 @@ class EntryNotification extends Component {
     localStorage.setItem('entryNotificationSeen', checked ? 'true' : 'false');
     localStorage.setItem(
       'entryNotificationVersion',
-      entryNotificationConfig.version,
+      ENTRY_NOTIFICATION_CONFIG.version,
     );
   };
 
@@ -94,12 +94,12 @@ class EntryNotification extends Component {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>{entryNotificationConfig.description}</p>
+          <p>{ENTRY_NOTIFICATION_CONFIG.description}</p>
 
           <TextWithIcon>
             <ArrowUpCircle /> 更新內容：
           </TextWithIcon>
-          <ul>{this.renderList(entryNotificationConfig.updates)}</ul>
+          <ul>{this.renderList(ENTRY_NOTIFICATION_CONFIG.updates)}</ul>
 
           <TextWithIcon>
             <FileEarmarkText /> 回饋表單：
@@ -107,11 +107,11 @@ class EntryNotification extends Component {
           <ul>
             <li>
               <a
-                href={entryNotificationConfig.feedbackFormUrl}
+                href={ENTRY_NOTIFICATION_CONFIG.feedbackFormUrl}
                 target='_blank'
                 rel='noreferrer'
               >
-                {entryNotificationConfig.feedbackFormUrl}
+                {ENTRY_NOTIFICATION_CONFIG.feedbackFormUrl}
               </a>
             </li>
           </ul>
@@ -128,7 +128,7 @@ class EntryNotification extends Component {
           </Button>
           <FillFormButton>
             <a
-              href={entryNotificationConfig.feedbackFormUrl}
+              href={ENTRY_NOTIFICATION_CONFIG.feedbackFormUrl}
               target='_blank'
               rel='noreferrer'
             >

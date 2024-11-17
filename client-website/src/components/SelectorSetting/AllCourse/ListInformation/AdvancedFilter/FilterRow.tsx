@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Dropdown, Form } from 'react-bootstrap';
 import styled from 'styled-components';
-import { defaultFilterOptions, websiteColor } from '../../../../../config';
-import {
+
+import type {
   AdvancedFilterType,
   AdvancedFilterElement,
   AdvancedFilterOption,
-} from '../../../../../types';
+} from '@/types';
+import { DEFAULT_FILTER_OPTIONS, WEBSITE_COLOR } from '@/config';
 
 const StyledDropdownMenu = styled(Dropdown.Menu)`
   max-height: 350px;
@@ -17,25 +18,25 @@ const StyledDropdownMenu = styled(Dropdown.Menu)`
 
     &.active {
       color: white;
-      background-color: ${websiteColor.mainColor};
+      background-color: ${WEBSITE_COLOR.mainColor};
     }
 
     &:active {
       color: white;
-      background-color: ${websiteColor.mainColor};
+      background-color: ${WEBSITE_COLOR.mainColor};
     }
   }
 `;
 
 const StyledDropdownToggle = styled(Dropdown.Toggle)`
-  background-color: ${websiteColor.mainColor};
+  background-color: ${WEBSITE_COLOR.mainColor};
 
   &:hover {
-    background-color: ${websiteColor.mainDarkerColor};
+    background-color: ${WEBSITE_COLOR.mainDarkerColor};
   }
 
   &:active {
-    background-color: ${websiteColor.mainColor};
+    background-color: ${WEBSITE_COLOR.mainColor};
   }
 `;
 
@@ -63,13 +64,13 @@ const FilterInput = styled.div`
 
 const FilterSwitch = styled(Form.Check)`
   .form-check-input:checked {
-    background-color: ${websiteColor.mainColor};
-    border-color: ${websiteColor.mainColor};
+    background-color: ${WEBSITE_COLOR.mainColor};
+    border-color: ${WEBSITE_COLOR.mainColor};
   }
 
   .form-check-input:focus {
-    border-color: ${websiteColor.mainColor};
-    box-shadow: 0 0 0 0.2rem ${websiteColor.boxShadowColor};
+    border-color: ${WEBSITE_COLOR.mainColor};
+    box-shadow: 0 0 0 0.2rem ${WEBSITE_COLOR.boxShadowColor};
   }
 `;
 
@@ -77,7 +78,7 @@ interface FilterRowProps {
   filterName: AdvancedFilterOption;
   isDropdown: boolean;
   advancedFilters: AdvancedFilterType;
-  filterOptions: typeof defaultFilterOptions;
+  filterOptions: typeof DEFAULT_FILTER_OPTIONS;
   onAdvancedFilterChange: (filter: AdvancedFilterType) => void;
   filterNameToDisplayName: (
     AdvancedFilterOption: AdvancedFilterOption,

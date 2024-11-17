@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import styled from 'styled-components';
 
-import type { TimeSlot } from '../types';
+import type { TimeSlot, Weekday } from '@/types';
 import CourseBlock from './ScheduleTable/CourseBlock';
-import { timeSlot, weekday } from '../config';
+import { TIMESLOT, WEEKDAY } from '../config';
 
 const StyledTableContainer = styled.div`
   border-radius: 0.375rem;
@@ -68,9 +68,9 @@ interface ScheduleTableProps {
 
 class ScheduleTable extends Component<ScheduleTableProps> {
   setting = {
-    columns: weekday.length + 1,
-    weekday: weekday,
-    timeSlots: timeSlot,
+    columns: WEEKDAY.length + 1,
+    weekday: WEEKDAY,
+    timeSlots: TIMESLOT,
   };
 
   /**
@@ -108,7 +108,7 @@ class ScheduleTable extends Component<ScheduleTableProps> {
    * @param {string} weekday 星期
    * @param {string} timeSlot 節次
    */
-  toggleTimeSlotSelect = (weekday: string, timeSlot: string) => {
+  toggleTimeSlotSelect = (weekday: Weekday, timeSlot: string) => {
     const { currentTab, toggleSearchTimeSlot } = this.props;
     if (currentTab !== '課程偵探') return;
 

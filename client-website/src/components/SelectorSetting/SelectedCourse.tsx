@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Card, Col } from 'react-bootstrap';
-import ListInformation from './SelectedCourse/ListInformation';
 import styled from 'styled-components';
 import ReactGA from 'react-ga4';
 
+import ListInformation from './SelectedCourse/ListInformation';
 import CoursesList from './SelectedCourse/CoursesList';
 import ExportModal from './SelectedCourse/ExportModal';
 import HowToUseModal from './SelectedCourse/HowToUseModal';

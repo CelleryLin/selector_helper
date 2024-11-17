@@ -8,9 +8,10 @@ import {
 } from 'react-bootstrap';
 import AdvancedFilter from './ListInformation/AdvancedFilter';
 import styled from 'styled-components';
-import { defaultFilterOptions, websiteColor } from '../../../config.js';
+
+import type { AdvancedFilterType } from '@/types';
+import { DEFAULT_FILTER_OPTIONS, WEBSITE_COLOR } from '@/config';
 import ClearSelectedCourses from './ListInformation/ClearSelectedCourses';
-import { AdvancedFilterType } from '../../../types';
 
 const ButtonsRow = styled.div`
   display: flex;
@@ -20,20 +21,20 @@ const ButtonsRow = styled.div`
   /* 定義活動按鈕的樣式 */
 
   .btn-check:checked + .btn {
-    background-color: ${websiteColor.mainColor};
+    background-color: ${WEBSITE_COLOR.mainColor};
     color: white;
-    border-color: ${websiteColor.mainColor};
+    border-color: ${WEBSITE_COLOR.mainColor};
   }
 `;
 
 const StyledButton = styled(ToggleButton)`
-  color: ${websiteColor.mainColor};
-  border-color: ${websiteColor.mainColor};
+  color: ${WEBSITE_COLOR.mainColor};
+  border-color: ${WEBSITE_COLOR.mainColor};
 
   &:focus,
   &:active:focus,
   &:not(:disabled):not(.disabled).active:focus {
-    box-shadow: 0 0 0 0.2rem ${websiteColor.boxShadowColor};
+    box-shadow: 0 0 0 0.2rem ${WEBSITE_COLOR.boxShadowColor};
   }
 `;
 
@@ -52,7 +53,7 @@ interface ListInformationProps {
     totalCredits: number;
     totalHours: number;
   };
-  filterOptions: typeof defaultFilterOptions;
+  filterOptions: typeof DEFAULT_FILTER_OPTIONS;
 }
 
 class ListInformation extends Component<ListInformationProps> {

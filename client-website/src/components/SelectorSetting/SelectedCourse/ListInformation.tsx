@@ -7,17 +7,17 @@ import {
   InfoCircle,
 } from 'react-bootstrap-icons';
 
-import { websiteColor } from '../../../config';
+import { WEBSITE_COLOR } from '@/config';
 
 const StyledButton = styled(Button)`
-  background-color: ${websiteColor.mainColor};
-  border-color: ${websiteColor.mainColor};
+  background-color: ${WEBSITE_COLOR.mainColor};
+  border-color: ${WEBSITE_COLOR.mainColor};
   display: flex;
   align-items: center;
 
   &:hover {
-    background-color: ${websiteColor.mainDarkerColor};
-    border-color: ${websiteColor.mainDarkerColor};
+    background-color: ${WEBSITE_COLOR.mainDarkerColor};
+    border-color: ${WEBSITE_COLOR.mainDarkerColor};
   }
 `;
 

@@ -3,8 +3,8 @@ import { Card, Col } from 'react-bootstrap';
 import styled from 'styled-components';
 
 import ListInformation from './RequiredCourse/ListInformation';
-import CoursesList from './AllCourse/CoursesList.js';
-import { defaultFilterOptions } from '../../config';
+import CoursesList from './AllCourse/CoursesList';
+import { DEFAULT_FILTER_OPTIONS } from '../../config.tsx';
 
 const StyledCardBody = styled(Card.Body)`
   height: 100%;
@@ -27,7 +27,7 @@ interface RequiredCourseProps {
     totalCredits: number;
     totalHours: number;
   };
-  filterOptions: typeof defaultFilterOptions;
+  filterOptions: typeof DEFAULT_FILTER_OPTIONS;
 }
 
 interface RequiredCourseState {

@@ -2,21 +2,20 @@ import { Component } from 'react';
 import { Card, Col } from 'react-bootstrap';
 import styled from 'styled-components';
 
-import CoursesList from './AllCourse/CoursesList';
-import ListInformation from './AllCourse/ListInformation';
-
-import {
-  courseDataNameMap,
-  courseDayName,
-  DEFAULT_ADVANCE_FILTER,
-  defaultFilterOptions,
-} from '../../config.js';
-import {
+import type {
   AdvancedFilterType,
   AdvancedFilterElement,
   AdvancedFilterOption,
   FilterOption,
-} from '../../types';
+} from '@/types';
+import {
+  COURSE_DATA_NAME_MAP,
+  COURSE_DAY_NAMES,
+  DEFAULT_ADVANCE_FILTER,
+  DEFAULT_FILTER_OPTIONS,
+} from '../../config';
+import CoursesList from './AllCourse/CoursesList';
+import ListInformation from './AllCourse/ListInformation';
 
 const StyledCardBody = styled(Card.Body)`
   height: 100%;
@@ -34,7 +33,7 @@ interface AllCourseProps {
   onClearAllSelectedCourses: () => void;
   onCourseHover: (courseId: string | null) => void;
   hoveredCourseId: string | null;
-  filterOptions: typeof defaultFilterOptions;
+  filterOptions: typeof DEFAULT_FILTER_OPTIONS;
   isCollapsed: boolean;
   detectTimeConflict: (course: Course, selectedCourses: Set<Course>) => boolean;
   calculateTotalCreditsAndHours: (courses: Set<Course>) => {
@@ -202,7 +201,7 @@ class AllCourse extends Component<AllCourseProps, AllCourseState> {
     filterName: FilterOption,
     filter: AdvancedFilterElement,
   ): boolean => {
-    const courseValue = course[courseDataNameMap[filterName]]?.toLowerCase();
+    const courseValue = course[COURSE_DATA_NAME_MAP[filterName]]?.toLowerCase();
     const filterLogic =
       filter.filterLogic === undefined ? 'include' : filter.filterLogic; // equal, include, exclude
     // 使用逗號或空格分割每個組
@@ -244,13 +243,13 @@ class AllCourse extends Component<AllCourseProps, AllCourseState> {
     if (filterName === '星期') {
       if (filterLogic !== 'equal') {
         // 檢查是否有任何一天匹配
-        const daysMatched = courseDayName.some((day) => {
+        const daysMatched = COURSE_DAY_NAMES.some((day) => {
           return filter.activeOptions[day] && course[day];
         });
         return filterLogic === 'include' ? daysMatched : !daysMatched;
       } else {
         // 檢查是否有所有天匹配
-        return courseDayName.every((day) => {
+        return COURSE_DAY_NAMES.every((day) => {
           return filter.activeOptions[day] === (course[day] !== '');
         });
       }
@@ -260,7 +259,7 @@ class AllCourse extends Component<AllCourseProps, AllCourseState> {
       if (filterLogic !== 'equal') {
         // 檢查是否有任何一節匹配
         let periodsMatched = false;
-        courseDayName.forEach((day) => {
+        COURSE_DAY_NAMES.forEach((day) => {
           if (course[day]) {
             periodsMatched =
               periodsMatched ||
@@ -278,7 +277,7 @@ class AllCourse extends Component<AllCourseProps, AllCourseState> {
           .sort()
           .join('');
         // console.log(filterPeriods);
-        courseDayName.forEach((day) => {
+        COURSE_DAY_NAMES.forEach((day) => {
           if (course[day]) {
             periodsMatched =
               periodsMatched &&
@@ -308,7 +307,7 @@ class AllCourse extends Component<AllCourseProps, AllCourseState> {
   ): boolean => {
     // equal method is not implemented
     let isInclude = filter.filterLogic === 'include' ? 'include' : 'exclude';
-    const courseValue = course[courseDataNameMap[filterName]]?.toString();
+    const courseValue = course[COURSE_DATA_NAME_MAP[filterName]]?.toString();
     let matched = Object.keys(filter.activeOptions).some((option) => {
       return filter.activeOptions[option] && courseValue === option;
     });

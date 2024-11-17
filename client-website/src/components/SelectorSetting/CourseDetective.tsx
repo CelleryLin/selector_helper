@@ -2,11 +2,10 @@ import { Component } from 'react';
 import { Card, Col } from 'react-bootstrap';
 import styled from 'styled-components';
 
-import CoursesList from './AllCourse/CoursesList.js';
+import type { TimeSlot } from '@/types';
+import { COURSE_DETECTIVE_ELEMENTS } from '../../config';
+import CoursesList from './AllCourse/CoursesList';
 import ListInformation from './CourseDetective/ListInformation';
-
-import { courseDetectiveElements } from '../../config.js';
-import { TimeSlot } from '../../types';
 
 const StyledCardBody = styled(Card.Body)`
   height: 100%;
@@ -33,7 +32,7 @@ interface CourseDetectiveProps {
 }
 
 interface CourseDetectiveState {
-  orderElements: typeof courseDetectiveElements;
+  orderElements: typeof COURSE_DETECTIVE_ELEMENTS;
   filteredCourses: Course[];
 }
 
@@ -42,7 +41,7 @@ class CourseDetective extends Component<
   CourseDetectiveState
 > {
   state = {
-    orderElements: courseDetectiveElements,
+    orderElements: COURSE_DETECTIVE_ELEMENTS,
     filteredCourses: [],
   };
 
@@ -107,7 +106,7 @@ class CourseDetective extends Component<
    * 設定排序元素序位
    * @param newOrderElements {Array} 新的排序元素
    */
-  setOrderElements = (newOrderElements: typeof courseDetectiveElements) => {
+  setOrderElements = (newOrderElements: typeof COURSE_DETECTIVE_ELEMENTS) => {
     this.setState(
       {
         orderElements: newOrderElements,

@@ -1,18 +1,19 @@
 import { Component } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import styled from 'styled-components';
-import { websiteColor, howToUseExportCode } from '../../../config.js';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
+import { WEBSITE_COLOR, HOW_TO_USE_EXPORT_CODE } from '@/config';
+
 const InfoButton = styled(Button)`
-  background-color: ${websiteColor.mainColor};
-  border-color: ${websiteColor.mainColor};
+  background-color: ${WEBSITE_COLOR.mainColor};
+  border-color: ${WEBSITE_COLOR.mainColor};
 
   &:hover,
   &:focus {
-    background-color: ${websiteColor.mainDarkerColor};
-    border-color: ${websiteColor.mainDarkerColor};
+    background-color: ${WEBSITE_COLOR.mainDarkerColor};
+    border-color: ${WEBSITE_COLOR.mainDarkerColor};
   }
 
   a {
@@ -53,7 +54,7 @@ interface HowToUseModalState {
 class HowToUseModal extends Component<HowToUseModalProps, HowToUseModalState> {
   state = {
     currentPage: 1,
-    totalPages: howToUseExportCode.length,
+    totalPages: HOW_TO_USE_EXPORT_CODE.length,
   };
 
   /**
@@ -82,7 +83,7 @@ class HowToUseModal extends Component<HowToUseModalProps, HowToUseModalState> {
   render() {
     const { currentPage, totalPages } = this.state;
     const { show, onHide } = this.props;
-    const currentImage = howToUseExportCode[currentPage - 1].image;
+    const currentImage = HOW_TO_USE_EXPORT_CODE[currentPage - 1].image;
 
     return (
       <Modal show={show} onHide={onHide} centered={true}>
@@ -100,7 +101,7 @@ class HowToUseModal extends Component<HowToUseModalProps, HowToUseModalState> {
               />
             </div>
           </ImageContainer>
-          <p>{howToUseExportCode[currentPage - 1].description}</p>
+          <p>{HOW_TO_USE_EXPORT_CODE[currentPage - 1].description}</p>
         </Modal.Body>
         <Modal.Footer>
           <span className='me-auto'>
