@@ -9,8 +9,15 @@ import LoadingSpinner from './components/LoadingSpinner';
 import ScheduleTable from './components/ScheduleTable';
 import SelectorSetting from './components/SelectorSetting';
 import EntryNotification from './components/EntryNotification';
-import type { Course, CourseDataFilesInfo, TimeSlot } from './types';
+import type {
+  AcademicYear,
+  Course,
+  CourseDataFilesInfo,
+  TimeSlot,
+} from './types';
 import { NSYSUCourseAPIOld } from '@/api/NSYSUCourseAPIOld.ts';
+import { NSYSUCourseAPI } from '@/api/NSYSUCourseAPI.ts';
+import { mapNewApiToOldApiFormat } from '@/utils';
 
 const TRACKING_ID = 'G-38C3BQTTSC'; // your Measurement ID
 
@@ -69,6 +76,8 @@ interface AppState {
   searchTimeSlot: TimeSlot[];
   experimentalFeatures: {
     useNewApi: boolean;
+    selectedSemester: string;
+    availableSemesters: AcademicYear;
   };
 }
 
@@ -85,7 +94,12 @@ class App extends Component<{}, AppState> {
     availableCourseHistoryData: [],
     searchTimeSlot: [],
     experimentalFeatures: {
-      useNewApi: false,
+      useNewApi: true,
+      selectedSemester: '',
+      availableSemesters: {
+        latest: '',
+        history: {},
+      },
     },
   };
 
@@ -101,6 +115,22 @@ class App extends Component<{}, AppState> {
     }
 
     void this.initCourseData();
+  }
+
+  async componentDidUpdate(
+    _prevProps: Readonly<{}>,
+    prevState: Readonly<AppState>,
+  ) {
+    if (!prevState.experimentalFeatures.useNewApi) {
+      return;
+    }
+
+    if (
+      this.state.experimentalFeatures.selectedSemester !==
+      prevState.experimentalFeatures.selectedSemester
+    ) {
+      void this.updateCourseWithNewApi();
+    }
   }
 
   /**
@@ -122,10 +152,19 @@ class App extends Component<{}, AppState> {
         const uniqueResults =
           await NSYSUCourseAPIOld.getSemesterUpdates(latestFile);
         this.setState({ courses: uniqueResults }, this.loadSelectedCourses);
-
-        console.log('uniqueResults', uniqueResults[0]);
       }
     } else {
+      const semesters = await NSYSUCourseAPI.getAvailableSemesters();
+      this.setState(
+        {
+          experimentalFeatures: {
+            ...this.state.experimentalFeatures,
+            availableSemesters: semesters,
+            selectedSemester: semesters.latest,
+          },
+        },
+        this.updateCourseWithNewApi,
+      );
     }
     this.endLoading();
 
@@ -140,6 +179,27 @@ class App extends Component<{}, AppState> {
     ) {
       this.setState({ currentTab: hash.slice(1) });
     }
+  };
+
+  updateCourseWithNewApi = async () => {
+    // Fetch the content of the selected semester
+    this.startLoading('資料');
+    try {
+      const updatedData = await NSYSUCourseAPI.getSemesterUpdates(
+        this.state.experimentalFeatures.selectedSemester,
+      );
+      const courses = await NSYSUCourseAPI.getCourses(
+        this.state.experimentalFeatures.selectedSemester,
+        updatedData.latest,
+      );
+      const mapCourses = courses.map((course) =>
+        mapNewApiToOldApiFormat(course),
+      );
+      this.setState({ courses: mapCourses }, this.loadSelectedCourses);
+    } catch (e) {
+      console.error(e);
+    }
+    this.endLoading();
   };
 
   /**
@@ -160,7 +220,36 @@ class App extends Component<{}, AppState> {
         this.loadSelectedCourses,
       );
     }
+
     this.endLoading();
+  };
+
+  /**
+   * 處理學期變更
+   * @param semester {string} 學期
+   */
+  onSemesterChange = (semester: string) => {
+    this.setState({
+      experimentalFeatures: {
+        ...this.state.experimentalFeatures,
+        selectedSemester: semester,
+      },
+    });
+  };
+
+  /**
+   * 切換實驗性功能
+   */
+  toggleExperimentalFeatures = () => {
+    this.setState(
+      (prevState) => ({
+        experimentalFeatures: {
+          ...prevState.experimentalFeatures,
+          useNewApi: !prevState.experimentalFeatures.useNewApi,
+        },
+      }),
+      this.initCourseData,
+    );
   };
 
   /**
@@ -356,6 +445,15 @@ class App extends Component<{}, AppState> {
           availableCourseHistoryData={availableCourseHistoryData}
           switchVersion={this.switchVersion}
           convertVersion={this.convertVersion}
+          toggleExperimentalFeatures={this.toggleExperimentalFeatures}
+          isExperimentalFeaturesEnabled={
+            this.state.experimentalFeatures.useNewApi
+          }
+          selectedSemester={this.state.experimentalFeatures.selectedSemester}
+          availableSemesters={
+            this.state.experimentalFeatures.availableSemesters
+          }
+          onSemesterChange={this.onSemesterChange}
         />
         <EntryNotification />
         {loading && <LoadingSpinner loadingName={loading} />}

@@ -13,12 +13,13 @@ import {
   JournalCheck,
   List,
   Megaphone,
+  Moisture,
   Search,
 } from 'react-bootstrap-icons';
 import styled from 'styled-components';
 import ReactGA from 'react-ga4';
 
-import type { CourseDataFilesInfo } from '@/types';
+import type { AcademicYear, CourseDataFilesInfo } from '@/types';
 import { WEBSITE_COLOR } from '../config';
 import Banner from '../assets/banner.svg';
 
@@ -111,6 +112,11 @@ interface HeaderProps {
   onTabChange: (tab: string) => void;
   switchVersion: (version: CourseDataFilesInfo) => void;
   convertVersion: (version: string) => string | React.ReactNode;
+  toggleExperimentalFeatures: () => void;
+  isExperimentalFeaturesEnabled: boolean;
+  selectedSemester: string;
+  availableSemesters: AcademicYear;
+  onSemesterChange: (semester: string) => void;
 }
 
 interface HeaderState {
@@ -148,6 +154,12 @@ class Header extends Component<HeaderProps, HeaderState> {
       icon: <Megaphone />,
     },
   ];
+
+  semesterCodeMap = {
+    1: '上',
+    2: '下',
+    3: '暑',
+  };
 
   /**
    * 切換 Offcanvas 顯示狀態
@@ -190,6 +202,17 @@ class Header extends Component<HeaderProps, HeaderState> {
   }
 
   /**
+   * 將學期代碼轉換為顯示格式
+   * @param semester 學期代碼
+   */
+  convertSemesterToDisplay = (semester: string) => {
+    const year = semester.slice(0, -1);
+    const semesterCode =
+      this.semesterCodeMap[parseInt(semester.slice(-1)) as 1 | 2 | 3];
+    return `${year} ${semesterCode}`;
+  };
+
+  /**
    * 註冊 scroll 事件
    */
   handleScroll = () => {
@@ -214,6 +237,11 @@ class Header extends Component<HeaderProps, HeaderState> {
       availableCourseHistoryData,
       switchVersion,
       convertVersion,
+      toggleExperimentalFeatures,
+      isExperimentalFeaturesEnabled,
+      availableSemesters,
+      selectedSemester,
+      onSemesterChange,
     } = this.props;
     const currentVersionDisplay = convertVersion(currentCourseHistoryData);
 
@@ -257,27 +285,76 @@ class Header extends Component<HeaderProps, HeaderState> {
                 activeKey={currentTab}
               >
                 <Nav.Item className='d-flex align-items-center'>
-                  <StyledNavDropdown
-                    title={
-                      (
-                        <>
-                          <ClockHistory />
-                          <span className='ms-2'>{currentVersionDisplay}</span>
-                        </>
-                      ) || '找尋資料中...'
-                    }
-                    id='nav-dropdown-course-history'
-                    className='px-3 float-start'
+                  {!isExperimentalFeaturesEnabled && (
+                    <StyledNavDropdown
+                      title={
+                        (
+                          <>
+                            <ClockHistory />
+                            <span className='ms-2'>
+                              {currentVersionDisplay}
+                            </span>
+                          </>
+                        ) || '找尋資料中...'
+                      }
+                      id='nav-dropdown-course-history'
+                      className='px-3 float-start'
+                    >
+                      {availableCourseHistoryData.map((data, index) => (
+                        <NavDropdown.Item
+                          key={index}
+                          onClick={() => switchVersion(data)}
+                        >
+                          {convertVersion(data.name)}
+                        </NavDropdown.Item>
+                      ))}
+                    </StyledNavDropdown>
+                  )}
+                  {isExperimentalFeaturesEnabled && (
+                    <StyledNavDropdown
+                      title={
+                        (
+                          <>
+                            <ClockHistory />
+                            <span className='ms-2'>
+                              {this.convertSemesterToDisplay(selectedSemester)}
+                            </span>
+                          </>
+                        ) || '找尋資料中...'
+                      }
+                      id='nav-dropdown-course-history'
+                      className='px-3 float-start'
+                    >
+                      {Object.keys(availableSemesters.history)
+                        .sort((a, b) => b.localeCompare(a))
+                        .map((year) => ({
+                          key: year,
+                          label: this.convertSemesterToDisplay(year),
+                          value: year,
+                        }))
+                        .map((semester) => (
+                          <NavDropdown.Item
+                            key={semester.key}
+                            onClick={() => onSemesterChange(semester.value)}
+                          >
+                            {semester.label}
+                          </NavDropdown.Item>
+                        ))}
+                    </StyledNavDropdown>
+                  )}
+                </Nav.Item>
+                <Nav.Item className='d-flex align-items-center'>
+                  <Nav.Link
+                    onClick={toggleExperimentalFeatures}
+                    className='px-3 d-flex align-items-center'
                   >
-                    {availableCourseHistoryData.map((data, index) => (
-                      <NavDropdown.Item
-                        key={index}
-                        onClick={() => switchVersion(data)}
-                      >
-                        {convertVersion(data.name)}
-                      </NavDropdown.Item>
-                    ))}
-                  </StyledNavDropdown>
+                    <Moisture />
+                    <span className='ms-2'>
+                      {isExperimentalFeaturesEnabled
+                        ? '關閉實驗性功能'
+                        : '開啟自動更新API (實驗性)'}
+                    </span>
+                  </Nav.Link>
                 </Nav.Item>
               </Nav>
               <Nav
