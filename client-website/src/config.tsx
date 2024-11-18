@@ -13,7 +13,7 @@ import {
 } from './types';
 
 export const ANNOUNCEMENT_DATA = {
-  version: 'v5.0.1',
+  version: 'v5.1.0',
   feedbackFormUrl: 'https://forms.gle/gFBZDgkSbj85zukP6',
   description: [
     <>
@@ -26,12 +26,15 @@ export const ANNOUNCEMENT_DATA = {
       <span className='text-danger fw-bold'>僅供參考</span>。
     </>,
     <>
-      課程資料是爬蟲下來的靜態資料，若有校方
-      <span className='text-danger fw-bold'>有異動</span>，本人尚未更新的話
-      <span className='text-danger fw-bold'>請聯絡</span>，感謝。
+      課程資料開啟實驗性功能將會獲取最新版，請在切換學期課表旁切換實驗性功能，並且
+      <span className='text-danger fw-bold'>確保手動刷新網頁以更新資料</span>。
+      <span className='text-danger fw-bold'>
+        如果實驗性功能有任何問題，請聯絡我
+      </span>
     </>,
   ],
   updates: [
+    '實驗性功能：改用自動更新API，資料將每小時更新一次。',
     '自動選課改稱課程偵探，並且改成排序列表',
     '新版前端完成了！手機版也有了！',
     '新增課程偵探時間點擊篩選功能',
@@ -53,9 +56,9 @@ export const ANNOUNCEMENT_DATA = {
   ],
   knownIssues: [
     'Safari 瀏覽器有可能會出現渲染問題，有任何選染錯誤請聯絡我，並註記您的瀏覽器版本。(如果願意擔當測試者，請在表單說想當 IOS 前端測試，不勝感激)',
-    'Bundle 初始化載入較慢，目前考慮使用 Vite 進行重構，如果有任何使用上卡頓的問題，請幫忙填寫表單反饋，並註記位置。',
+    '如果有任何使用上卡頓的問題，請幫忙填寫表單反饋，並註記位置。',
     <>
-      課程資料是爬蟲下來的靜態資料，更新依賴於手動，計畫未來會進行自動化更新，但目前尚未進行。有興趣協助的話，請看
+      課程資料是爬蟲下來的靜態資料，更新會每小時執行一次，請開啟實驗性功能，來體驗更即時課程更新。有興趣用此API的人可以參考
       <a href='https://github.com/whats2000/NSYSUCourseAPI'>中山課程開放API</a>
     </>,
   ],
