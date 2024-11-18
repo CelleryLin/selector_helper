@@ -62,7 +62,7 @@ class AllCourse extends Component<AllCourseProps, AllCourseState> {
 
   componentDidMount() {
     const savedBasicFilter = localStorage.getItem('basicFilter');
-    const savedAdvancedFilters = localStorage.getItem('advancedFilters');
+    const savedAdvancedFilters = localStorage.getItem('advancedFilters-v5.0.1');
 
     if (savedBasicFilter || savedAdvancedFilters) {
       this.setState({
@@ -84,7 +84,7 @@ class AllCourse extends Component<AllCourseProps, AllCourseState> {
     ) {
       localStorage.setItem('basicFilter', this.state.basicFilter);
       localStorage.setItem(
-        'advancedFilters',
+        'advancedFilters-v5.0.1',
         JSON.stringify(this.state.advancedFilters),
       );
 
