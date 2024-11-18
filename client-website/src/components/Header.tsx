@@ -288,14 +288,16 @@ class Header extends Component<HeaderProps, HeaderState> {
                   {!isExperimentalFeaturesEnabled && (
                     <StyledNavDropdown
                       title={
-                        (
+                        currentVersionDisplay ? (
                           <>
                             <ClockHistory />
                             <span className='ms-2'>
                               {currentVersionDisplay}
                             </span>
                           </>
-                        ) || '找尋資料中...'
+                        ) : (
+                          '找尋資料中...'
+                        )
                       }
                       id='nav-dropdown-course-history'
                       className='px-3 float-start'
@@ -313,14 +315,16 @@ class Header extends Component<HeaderProps, HeaderState> {
                   {isExperimentalFeaturesEnabled && (
                     <StyledNavDropdown
                       title={
-                        (
+                        selectedSemester && availableSemesters.history ? (
                           <>
                             <ClockHistory />
                             <span className='ms-2'>
                               {this.convertSemesterToDisplay(selectedSemester)}
                             </span>
                           </>
-                        ) || '找尋資料中...'
+                        ) : (
+                          '找尋資料中...'
+                        )
                       }
                       id='nav-dropdown-course-history'
                       className='px-3 float-start'
