@@ -6,33 +6,10 @@ const BASE_URL =
 
 export class NSYSUCourseAPIOld {
   /**
-   * 取得所有可用課程資料檔案
-   */
-  static async getAvailableCourseDataFiles(): Promise<CourseDataFilesInfo[]> {
-    const response = await fetch(BASE_URL);
-    if (!response.ok) {
-      throw new Error('Failed to fetch available course data files');
-    }
-    return response.json();
-  }
-
-  /**
-   * 下載指定課程資料檔案
-   * @param fileName 課程資料檔案名稱
-   */
-  static async getCourseData(fileName: string): Promise<string> {
-    const response = await fetch(`${BASE_URL}/${fileName}`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch course data');
-    }
-    return response.text();
-  }
-
-  /**
    * 解析 CSV 內容並返回去重的課程資料
    * @param csvText CSV 文字
    */
-  static parseCourseData(csvText: string): Course[] {
+  private static parseCourseData(csvText: string): Course[] {
     const results = Papa.parse<Course>(csvText, {
       header: true,
       skipEmptyLines: true,
@@ -47,5 +24,87 @@ export class NSYSUCourseAPIOld {
             c['Teacher'] === course['Teacher'],
         ),
     );
+  }
+
+  /**
+   * 取得所有可用課程資料檔案
+   */
+  static async getAvailableSemesters(): Promise<CourseDataFilesInfo[]> {
+    try {
+      const response = await fetch(BASE_URL);
+      if (!response.ok) {
+        console.error('Failed to fetch available course data files');
+        return [];
+      }
+      const files = await response.json();
+      if (!Array.isArray(files)) {
+        console.error('Invalid course data files, it should be an array');
+        return [];
+      }
+
+      if (files.length === 0) {
+        console.error('No course data files found');
+        return [];
+      }
+
+      const groupedFiles = files
+        .filter((file) => file.name.endsWith('.csv'))
+        .reduce(
+          (
+            acc: {
+              [key: string]: CourseDataFilesInfo[];
+            },
+            file,
+          ) => {
+            const match = file.name.match(/all_classes_(\d{3})([123])_/);
+            if (!match) return acc;
+
+            const key = `${match[1]}-${match[2]}`; // Group key: academicYear-semester
+            if (!acc[key]) {
+              acc[key] = [];
+            }
+            acc[key].push(file);
+
+            return acc;
+          },
+          {},
+        );
+
+      // Select the latest file for each academic year and semester
+      return Object.values(groupedFiles).map((group) => {
+        return group.sort((a, b) => b.name.localeCompare(a.name))[0];
+      });
+    } catch (error) {
+      console.error(error);
+    }
+
+    return [];
+  }
+
+  /**
+   * 下載指定課程資料檔案
+   * @param version 課程資料檔案資訊
+   */
+  static async getSemesterUpdates(
+    version: CourseDataFilesInfo,
+  ): Promise<Course[]> {
+    try {
+      const response = await fetch(version.download_url);
+      if (!response.ok) {
+        console.error('Failed to fetch course data file');
+        return [];
+      }
+      const csvText = await response.text();
+
+      if (!csvText) {
+        console.error('Empty course data file');
+        return [];
+      }
+
+      return this.parseCourseData(csvText);
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
 }

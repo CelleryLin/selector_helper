@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import Papa from 'papaparse';
 import { Col, Row } from 'react-bootstrap';
 import { ArrowBarRight, ArrowBarLeft } from 'react-bootstrap-icons';
 import ReactGA from 'react-ga4';
@@ -11,7 +10,7 @@ import ScheduleTable from './components/ScheduleTable';
 import SelectorSetting from './components/SelectorSetting';
 import EntryNotification from './components/EntryNotification';
 import type { CourseDataFilesInfo, TimeSlot } from './types';
-import { COURSE_DATA_API } from './config';
+import { NSYSUCourseAPIOld } from '@/api/NSYSUCourseAPIOld.ts';
 
 const TRACKING_ID = 'G-38C3BQTTSC'; // your Measurement ID
 
@@ -68,6 +67,9 @@ interface AppState {
   latestCourseHistoryData: string;
   availableCourseHistoryData: CourseDataFilesInfo[];
   searchTimeSlot: TimeSlot[];
+  experimentalFeatures: {
+    useNewApi: boolean;
+  };
 }
 
 class App extends Component<{}, AppState> {
@@ -82,6 +84,9 @@ class App extends Component<{}, AppState> {
     latestCourseHistoryData: '',
     availableCourseHistoryData: [],
     searchTimeSlot: [],
+    experimentalFeatures: {
+      useNewApi: false,
+    },
   };
 
   componentDidMount() {
@@ -95,130 +100,62 @@ class App extends Component<{}, AppState> {
       loadingScreen.style.display = 'none';
     }
 
-    const removeLoadingScreen = () => {
-      this.endLoading();
-    };
-
-    fetch(COURSE_DATA_API.targetAPI)
-      .then((response) => response.json())
-      .then((files: CourseDataFilesInfo[] | undefined) => {
-        if (!(files && files.length)) throw new Error('抓取課程資料失敗。');
-        // Filter out the .csv files and group by academic year and semester
-        const groupedFiles = files
-          .filter((file) => file.name.endsWith('.csv'))
-          .reduce(
-            (
-              acc: {
-                [key: string]: CourseDataFilesInfo[];
-              },
-              file,
-            ) => {
-              const match = file.name.match(/all_classes_(\d{3})([123])_/);
-              if (!match) return acc;
-
-              const key = `${match[1]}-${match[2]}`; // Group key: academicYear-semester
-              if (!acc[key]) {
-                acc[key] = [];
-              }
-              acc[key].push(file);
-
-              return acc;
-            },
-            {},
-          );
-
-        // Select the latest file for each academic year and semester
-        const latestFiles = Object.values(groupedFiles).map((group) => {
-          return group.sort((a, b) => b.name.localeCompare(a.name))[0];
-        });
-
-        // Update the state with the latest files
-        this.setState({ availableCourseHistoryData: latestFiles });
-
-        // Fetch the content of the latest file
-        const latestFile = latestFiles.sort((a, b) =>
-          b.name.localeCompare(a.name),
-        )[0];
-        this.setState({ currentCourseHistoryData: latestFile.name });
-        this.setState({ latestCourseHistoryData: latestFile.name });
-
-        if (latestFile) {
-          return fetch(latestFile['download_url']);
-        } else {
-          throw new Error('沒有找到課程資料。');
-        }
-      })
-      .then((response) => response.text())
-      .then((csvText) => {
-        // Parse the CSV content
-        const results = Papa.parse<Course>(csvText, {
-          header: true,
-          skipEmptyLines: true,
-        });
-        const uniqueResults = this.filterUniqueCourses(results.data);
-
-        this.setState({ courses: uniqueResults }, this.loadSelectedCourses);
-
-        removeLoadingScreen();
-      })
-      .catch((error) => {
-        console.error('轉換課程資料失敗：', error);
-
-        removeLoadingScreen();
-      })
-      .finally(() => {
-        // whats2000: 處理網址 hash 應自動切換至對應頁面
-        const hash = decodeURI(window.location.hash);
-
-        if (
-          hash &&
-          [
-            '#所有課程',
-            '#學期必修',
-            '#課程偵探',
-            '#已選匯出',
-            '#公告',
-          ].includes(hash)
-        ) {
-          this.setState({ currentTab: hash.slice(1) });
-        }
-      });
+    void this.initCourseData();
   }
+
+  /**
+   * 初始化課程資料
+   */
+  initCourseData = async () => {
+    this.startLoading('資料');
+    if (!this.state.experimentalFeatures.useNewApi) {
+      const latestFiles = await NSYSUCourseAPIOld.getAvailableSemesters();
+      this.setState({ availableCourseHistoryData: latestFiles });
+      // Fetch the content of the latest file
+      const latestFile = latestFiles.sort((a, b) =>
+        b.name.localeCompare(a.name),
+      )[0];
+      this.setState({ currentCourseHistoryData: latestFile.name });
+      this.setState({ latestCourseHistoryData: latestFile.name });
+      const uniqueResults =
+        await NSYSUCourseAPIOld.getSemesterUpdates(latestFile);
+      this.setState({ courses: uniqueResults }, this.loadSelectedCourses);
+    } else {
+    }
+    this.endLoading();
+
+    // whats2000: 處理網址 hash 應自動切換至對應頁面
+    const hash = decodeURI(window.location.hash);
+
+    if (
+      hash &&
+      ['#所有課程', '#學期必修', '#課程偵探', '#已選匯出', '#公告'].includes(
+        hash,
+      )
+    ) {
+      this.setState({ currentTab: hash.slice(1) });
+    }
+  };
 
   /**
    * 轉換版本
    * @param version {Object} 版本
    */
-  switchVersion = (version: CourseDataFilesInfo) => {
+  switchVersion = async (version: CourseDataFilesInfo) => {
     this.startLoading('資料');
 
-    // Fetch the CSV file associated with the selected version
-    fetch(version.download_url)
-      .then((response) => response.text())
-      .then((csvText) => {
-        // Parse the CSV content
-        const results = Papa.parse<Course>(csvText, {
-          header: true,
-          skipEmptyLines: true,
-        });
-        const uniqueResults = this.filterUniqueCourses(results.data);
-
-        // Update the state with the new course data and selected version
-        this.setState(
-          {
-            courses: uniqueResults,
-            currentCourseHistoryData: version.name,
-          },
-          this.loadSelectedCourses,
-        );
-
-        this.endLoading();
-      })
-      .catch((error) => {
-        console.error('轉換課程資料失敗：', error);
-
-        this.endLoading();
-      });
+    if (!this.state.experimentalFeatures.useNewApi) {
+      // Fetch the csv file content
+      const uniqueResults = await NSYSUCourseAPIOld.getSemesterUpdates(version);
+      this.setState(
+        {
+          courses: uniqueResults,
+          currentCourseHistoryData: version.name,
+        },
+        this.loadSelectedCourses,
+      );
+    }
+    this.endLoading();
   };
 
   /**
@@ -250,24 +187,6 @@ class App extends Component<{}, AppState> {
         {semesterText}
         <span className='version-formattedDate'>{formattedDate}</span>
       </>
-    );
-  };
-
-  /**
-   * 過濾重複的課程
-   * @param courses {Course[]} 課程資料
-   * @returns {Course[]} 過濾後的課程資料
-   */
-  filterUniqueCourses = (courses: Course[]): Course[] => {
-    return courses.filter(
-      (course, index, self) =>
-        index ===
-        self.findIndex(
-          (c) =>
-            c['Name'] === course['Name'] &&
-            c['Number'] === course['Number'] &&
-            c['Teacher'] === course['Teacher'],
-        ),
     );
   };
 
