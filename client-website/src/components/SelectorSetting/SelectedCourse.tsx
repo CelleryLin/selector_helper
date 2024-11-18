@@ -3,6 +3,7 @@ import { Card, Col } from 'react-bootstrap';
 import styled from 'styled-components';
 import ReactGA from 'react-ga4';
 
+import type { Course } from '@/types';
 import ListInformation from './SelectedCourse/ListInformation';
 import CoursesList from './SelectedCourse/CoursesList';
 import ExportModal from './SelectedCourse/ExportModal';

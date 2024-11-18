@@ -9,7 +9,7 @@ import {
 import AdvancedFilter from './ListInformation/AdvancedFilter';
 import styled from 'styled-components';
 
-import type { AdvancedFilterType } from '@/types';
+import type { AdvancedFilterType, Course } from '@/types';
 import { DEFAULT_FILTER_OPTIONS, WEBSITE_COLOR } from '@/config';
 import ClearSelectedCourses from './ListInformation/ClearSelectedCourses';
 

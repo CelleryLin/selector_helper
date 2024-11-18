@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import styled from 'styled-components';
 
-import type { TimeSlot, Weekday } from '@/types';
+import type { Course, TimeSlot, Weekday } from '@/types';
 import CourseBlock from './ScheduleTable/CourseBlock';
 import { TIMESLOT, WEEKDAY } from '../config';
 

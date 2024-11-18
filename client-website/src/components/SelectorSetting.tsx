@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import type { TimeSlot } from '@/types';
+import type { Course, TimeSlot } from '@/types';
 import { COURSE_DAY_NAMES, DEFAULT_FILTER_OPTIONS } from '../config';
 import AllCourse from './SelectorSetting/AllCourse';
 import RequiredCourse from './SelectorSetting/RequiredCourse';

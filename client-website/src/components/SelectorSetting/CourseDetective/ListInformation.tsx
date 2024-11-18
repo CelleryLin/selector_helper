@@ -18,8 +18,9 @@ import { Button, Card, InputGroup, Offcanvas } from 'react-bootstrap';
 import { SortNumericUp } from 'react-bootstrap-icons';
 import styled from 'styled-components';
 
-import { SortableItem } from './ListInformation/SortableItem';
+import type { Course } from '@/types';
 import { COURSE_DETECTIVE_ELEMENTS, WEBSITE_COLOR } from '@/config';
+import { SortableItem } from './ListInformation/SortableItem';
 
 const StyledButton = styled(Button)`
   background-color: ${WEBSITE_COLOR.mainColor};

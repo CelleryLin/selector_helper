@@ -7,6 +7,7 @@ import {
   InfoCircle,
 } from 'react-bootstrap-icons';
 
+import type { Course } from '@/types';
 import { WEBSITE_COLOR } from '@/config';
 
 const StyledButton = styled(Button)`

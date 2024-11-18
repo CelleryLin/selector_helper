@@ -1,4 +1,4 @@
-interface Course {
+export interface Course {
   Change: string;
   Class: '不分班' | '全英班' | '甲班' | '乙班';
   CompulsoryElective: string;

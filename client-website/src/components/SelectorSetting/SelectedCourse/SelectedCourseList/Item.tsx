@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import type { Placement } from 'react-bootstrap/types';
 import { Form, OverlayTrigger, Popover, Stack } from 'react-bootstrap';
 
-import type { Weekday } from '@/types';
+import type { Course, Weekday } from '@/types';
 import {
   Tag,
   CourseInfo,

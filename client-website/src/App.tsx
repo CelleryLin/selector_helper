@@ -9,7 +9,7 @@ import LoadingSpinner from './components/LoadingSpinner';
 import ScheduleTable from './components/ScheduleTable';
 import SelectorSetting from './components/SelectorSetting';
 import EntryNotification from './components/EntryNotification';
-import type { CourseDataFilesInfo, TimeSlot } from './types';
+import type { Course, CourseDataFilesInfo, TimeSlot } from './types';
 import { NSYSUCourseAPIOld } from '@/api/NSYSUCourseAPIOld.ts';
 
 const TRACKING_ID = 'G-38C3BQTTSC'; // your Measurement ID
@@ -111,15 +111,20 @@ class App extends Component<{}, AppState> {
     if (!this.state.experimentalFeatures.useNewApi) {
       const latestFiles = await NSYSUCourseAPIOld.getAvailableSemesters();
       this.setState({ availableCourseHistoryData: latestFiles });
-      // Fetch the content of the latest file
-      const latestFile = latestFiles.sort((a, b) =>
-        b.name.localeCompare(a.name),
-      )[0];
-      this.setState({ currentCourseHistoryData: latestFile.name });
-      this.setState({ latestCourseHistoryData: latestFile.name });
-      const uniqueResults =
-        await NSYSUCourseAPIOld.getSemesterUpdates(latestFile);
-      this.setState({ courses: uniqueResults }, this.loadSelectedCourses);
+
+      if (latestFiles.length > 0) {
+        // Fetch the content of the latest file
+        const latestFile = latestFiles.sort((a, b) =>
+          b.name.localeCompare(a.name),
+        )[0];
+        this.setState({ currentCourseHistoryData: latestFile.name });
+        this.setState({ latestCourseHistoryData: latestFile.name });
+        const uniqueResults =
+          await NSYSUCourseAPIOld.getSemesterUpdates(latestFile);
+        this.setState({ courses: uniqueResults }, this.loadSelectedCourses);
+
+        console.log('uniqueResults', uniqueResults[0]);
+      }
     } else {
     }
     this.endLoading();

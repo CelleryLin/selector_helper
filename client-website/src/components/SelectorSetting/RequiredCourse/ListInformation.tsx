@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card, Button, Form, InputGroup, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
 
+import type { Course } from '@/types';
 import { DEFAULT_FILTER_OPTIONS, WEBSITE_COLOR } from '@/config';
 
 const StyledSelect = styled(Form.Select)`

@@ -7,6 +7,7 @@ import type {
   AdvancedFilterElement,
   AdvancedFilterOption,
   FilterOption,
+  Course,
 } from '@/types';
 import {
   COURSE_DATA_NAME_MAP,

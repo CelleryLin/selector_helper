@@ -2,9 +2,10 @@ import { Component } from 'react';
 import { Card, Col } from 'react-bootstrap';
 import styled from 'styled-components';
 
+import type { Course } from '@/types';
+import { DEFAULT_FILTER_OPTIONS } from '@/config.tsx';
 import ListInformation from './RequiredCourse/ListInformation';
 import CoursesList from './AllCourse/CoursesList';
-import { DEFAULT_FILTER_OPTIONS } from '../../config.tsx';
 
 const StyledCardBody = styled(Card.Body)`
   height: 100%;

@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { Trash3 } from 'react-bootstrap-icons';
 import styled from 'styled-components';
 
+import type { Course } from '@/types';
 import { WEBSITE_COLOR } from '../../config';
 
 const DeleteButton = styled.div`

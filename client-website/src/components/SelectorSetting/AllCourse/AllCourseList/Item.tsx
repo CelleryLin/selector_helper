@@ -3,7 +3,7 @@ import ReactGA from 'react-ga4';
 import { Form, OverlayTrigger, Popover, Stack } from 'react-bootstrap';
 import type { Placement } from 'react-bootstrap/types';
 
-import type { Weekday } from '@/types';
+import type { Course, Weekday } from '@/types';
 import {
   CourseInfo,
   CourseRow,

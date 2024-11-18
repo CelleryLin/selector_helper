@@ -8,6 +8,7 @@ import exportCourse7 from './images/ExportCourse7.png';
 import {
   AdvancedFilterOption,
   AdvancedFilterType,
+  Course,
   FilterOption,
 } from './types';
 

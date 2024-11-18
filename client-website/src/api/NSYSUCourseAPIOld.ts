@@ -1,4 +1,4 @@
-import { CourseDataFilesInfo } from '@/types';
+import { Course, CourseDataFilesInfo } from '@/types';
 import Papa from 'papaparse';
 
 const BASE_URL =

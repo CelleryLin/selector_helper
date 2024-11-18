@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { Card, Col } from 'react-bootstrap';
 import styled from 'styled-components';
 
-import type { TimeSlot } from '@/types';
+import type { Course, TimeSlot } from '@/types';
 import { COURSE_DETECTIVE_ELEMENTS } from '../../config';
 import CoursesList from './AllCourse/CoursesList';
 import ListInformation from './CourseDetective/ListInformation';
