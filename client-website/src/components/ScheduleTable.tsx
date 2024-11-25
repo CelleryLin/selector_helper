@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import type { Course, TimeSlot, Weekday } from '@/types';
 import CourseBlock from './ScheduleTable/CourseBlock';
@@ -21,23 +21,20 @@ const StyledTable = styled.table`
 const HeaderCell = styled.th`
   font-weight: normal;
   padding: 2px !important;
-  // background-color: lightgray !important;
-  opacity: 1;
-!important;
+  opacity: 1 !important;
 `;
 
 const TimeSlotCell = styled.th`
   width: 4%;
   padding: 2px !important;
   font-weight: normal;
-  // background-color: lightgray !important;
-  opacity: 1;
-!important;
+  opacity: 1 !important;
 `;
 
 // Cellery: 更改選取樣式
-const SelectedTimeSlot = `
+const SelectedTimeSlot = css`
   background-color: #e1e39f !important;
+  opacity: 1 !important;
 `;
 
 const CourseCell = styled.td`
@@ -64,6 +61,7 @@ interface ScheduleTableProps {
   onCourseHover: (courseId: string | null) => void;
   searchTimeSlot: TimeSlot[];
   toggleSearchTimeSlot: (timeSlot: TimeSlot) => void;
+  onCourseClick: (course: Course) => void; // New prop for handling course click
 }
 
 class ScheduleTable extends Component<ScheduleTableProps> {
@@ -81,9 +79,7 @@ class ScheduleTable extends Component<ScheduleTableProps> {
     [key: string]: Course[];
   } => {
     const { selectedCourses } = this.props;
-    const coursesTable: {
-      [key: string]: Course[];
-    } = {};
+    const coursesTable: { [key: string]: Course[] } = {};
 
     this.setting.timeSlots.forEach((timeSlot) => {
       this.setting.weekday.forEach((weekday) => {
@@ -130,8 +126,13 @@ class ScheduleTable extends Component<ScheduleTableProps> {
   };
 
   render() {
-    const { hoveredCourseId, onCourseHover, handleCourseSelect, currentTab } =
-      this.props;
+    const {
+      hoveredCourseId,
+      onCourseHover,
+      handleCourseSelect,
+      currentTab,
+      onCourseClick,
+    } = this.props;
     const coursesTable = this.createCourseTable();
 
     const isAtCourseDetectiveTab = currentTab === '課程偵探';
@@ -196,6 +197,7 @@ class ScheduleTable extends Component<ScheduleTableProps> {
                           handleCourseSelect={handleCourseSelect}
                           hoveredCourseId={hoveredCourseId}
                           onCourseHover={onCourseHover}
+                          onCourseClick={onCourseClick}
                         />
                       ),
                     )}

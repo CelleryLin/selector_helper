@@ -41,6 +41,7 @@ interface AllCourseProps {
     totalCredits: number;
     totalHours: number;
   };
+  clickedCourseId: string | null;
 }
 
 interface AllCourseState {
@@ -359,6 +360,7 @@ class AllCourse extends Component<AllCourseProps, AllCourseState> {
       isCollapsed,
       detectTimeConflict,
       calculateTotalCreditsAndHours,
+      clickedCourseId,
     } = this.props;
     const {
       filteredCourses,
@@ -408,6 +410,7 @@ class AllCourse extends Component<AllCourseProps, AllCourseState> {
             displaySelectedOnly={displaySelectedOnly}
             onCourseSelect={onCourseSelect}
             onCourseHover={onCourseHover}
+            clickedCourseId={clickedCourseId}
           />
         </StyledCardBody>
       </Card>

@@ -29,6 +29,7 @@ interface RequiredCourseProps {
     totalHours: number;
   };
   filterOptions: typeof DEFAULT_FILTER_OPTIONS;
+  clickedCourseId: string | null;
 }
 
 interface RequiredCourseState {
@@ -118,6 +119,7 @@ class RequiredCourse extends Component<
       detectTimeConflict,
       calculateTotalCreditsAndHours,
       filterOptions,
+      clickedCourseId,
     } = this.props;
     const { requiredCourseFilters, filteredCourses } = this.state;
 
@@ -152,6 +154,7 @@ class RequiredCourse extends Component<
             onCourseSelect={onCourseSelect}
             onCourseHover={onCourseHover}
             displaySelectedOnly={false}
+            clickedCourseId={clickedCourseId}
           />
         </StyledCardBody>
       </Card>

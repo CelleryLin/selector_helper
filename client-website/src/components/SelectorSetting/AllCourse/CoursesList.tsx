@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import { Card } from 'react-bootstrap';
-import { Virtuoso } from 'react-virtuoso';
+import { Virtuoso, VirtuosoHandle } from 'react-virtuoso';
 
 import type { Course } from '@/types';
 import Header from './AllCourseList/Header';
@@ -16,9 +16,26 @@ interface CoursesListProps {
   onCourseSelect: (course: Course, isSelected: boolean) => void;
   onCourseHover: (courseId: string | null) => void;
   hoveredCourseId: string | null;
+  clickedCourseId: string | null;
 }
 
 class CoursesList extends Component<CoursesListProps> {
+  private virtuosoRef = createRef<VirtuosoHandle>();
+
+  componentDidUpdate(prevProps: Readonly<CoursesListProps>) {
+    if (
+      prevProps.clickedCourseId !== this.props.clickedCourseId &&
+      this.props.clickedCourseId
+    ) {
+      const course = this.props.courses.find(
+        (c) => c['Number'] === this.props.clickedCourseId,
+      );
+      if (course) {
+        this.scrollToCourse(course);
+      }
+    }
+  }
+
   /**
    * 渲染列表項目
    * @param {number} index
@@ -75,6 +92,22 @@ class CoursesList extends Component<CoursesListProps> {
     );
   };
 
+  /**
+   * 滾動到特定課程
+   * @param {Course} course - 要滾動到的課程
+   */
+  scrollToCourse = (course: Course) => {
+    if (this.virtuosoRef.current) {
+      const courseIndex = this.props.courses.findIndex(
+        (c) => c['Number'] === course['Number'],
+      );
+      if (courseIndex !== -1) {
+        // Add 1 to account for the header
+        this.virtuosoRef.current.scrollToIndex(courseIndex + 1);
+      }
+    }
+  };
+
   render() {
     const { courses } = this.props;
 
@@ -93,6 +126,7 @@ class CoursesList extends Component<CoursesListProps> {
 
     return (
       <Virtuoso
+        ref={this.virtuosoRef}
         data={dataWithHeader}
         itemContent={this.renderItem}
         topItemCount={1}
