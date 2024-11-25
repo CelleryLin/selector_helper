@@ -275,6 +275,15 @@ class FilterRow extends Component<FilterRowProps, FilterRowState> {
       filterLogic: 'include',
       activeOptions: {},
     };
+    if (!selected.value) {
+      selected.value = '';
+    }
+    if (!selected.filterLogic) {
+      selected.filterLogic = 'include';
+    }
+    if (!selected.activeOptions) {
+      selected.activeOptions = {};
+    }
     const textInput = advancedFilters[filterName]?.value || '';
     const filterLogic = advancedFilters[filterName]?.filterLogic ?? 'include';
 
