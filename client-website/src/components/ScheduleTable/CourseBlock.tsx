@@ -32,6 +32,7 @@ const StyledCourseBlock = styled.div`
   padding: 2px 4px;
   font-size: 9px;
   text-align: center;
+  cursor: pointer;
 
   &:last-child {
     margin-bottom: 0;
@@ -51,6 +52,7 @@ interface CourseBlockProps {
   onCourseHover: (courseId: string | null) => void;
   hoveredCourseId: string | null;
   handleCourseSelect: (course: Course, isSelected: boolean) => void;
+  onCourseClick?: (course: Course) => void; // New optional prop
 }
 
 class CourseBlock extends Component<CourseBlockProps> {
@@ -60,6 +62,16 @@ class CourseBlock extends Component<CourseBlockProps> {
   handleDeleteCourse = () => {
     const { course, handleCourseSelect } = this.props;
     handleCourseSelect(course, false); // 調用父組件的函數來刪除課程
+  };
+
+  /**
+   * 處理課程點擊事件
+   */
+  handleCourseClick = () => {
+    const { onCourseClick, course } = this.props;
+    if (onCourseClick) {
+      onCourseClick(course);
+    }
   };
 
   /**
@@ -104,6 +116,7 @@ class CourseBlock extends Component<CourseBlockProps> {
         onMouseEnter={() => onCourseHover(course['Number'])}
         onMouseLeave={() => onCourseHover(null)}
         style={courseBlockStyle}
+        onClick={this.handleCourseClick}
       >
         <span className='d-block fw-bold'>{course['Name']}</span>
         {course['Room'].split('\n').map((room, index) => (

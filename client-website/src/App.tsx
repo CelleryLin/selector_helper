@@ -79,6 +79,7 @@ interface AppState {
     selectedSemester: string;
     availableSemesters: AcademicYear;
   };
+  clickedCourseId?: string | null;
 }
 
 class App extends Component<{}, AppState> {
@@ -101,6 +102,7 @@ class App extends Component<{}, AppState> {
         history: {},
       },
     },
+    clickedCourseId: null,
   };
 
   componentDidMount() {
@@ -415,6 +417,15 @@ class App extends Component<{}, AppState> {
     this.setState({ loading: null });
   };
 
+  // whats2000: 新增處理課程點擊事件
+  /**
+   * 處理課程點擊
+   * @param course {Course} 課程資料
+   */
+  onCourseClick = (course: Course) => {
+    this.setState({ clickedCourseId: course.Number });
+  };
+
   /**
    * 渲染元件
    * @returns {React.ReactNode} 元件
@@ -431,6 +442,7 @@ class App extends Component<{}, AppState> {
       availableCourseHistoryData,
       loading,
       searchTimeSlot,
+      clickedCourseId,
     } = this.state;
     const slideStyle = {
       marginLeft: isCollapsed ? (window.innerWidth >= 992 ? '-50%' : '0') : '0',
@@ -480,6 +492,7 @@ class App extends Component<{}, AppState> {
                 onCourseHover={this.handleCourseHover}
                 searchTimeSlot={searchTimeSlot}
                 toggleSearchTimeSlot={this.toggleSearchTimeSlot}
+                onCourseClick={this.onCourseClick}
               />
             </SlideColContainer>
 
@@ -499,6 +512,7 @@ class App extends Component<{}, AppState> {
                 latestCourseHistoryData={latestCourseHistoryData}
                 convertVersion={this.convertVersion}
                 searchTimeSlot={searchTimeSlot}
+                clickedCourseId={clickedCourseId}
               />
             </FixedHeightCol>
           </Row>

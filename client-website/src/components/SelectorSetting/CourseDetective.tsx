@@ -29,6 +29,7 @@ interface CourseDetectiveProps {
   hoveredCourseId: string | null;
   onCourseSelect: (course: Course, isSelected: boolean) => void;
   onCourseHover: (courseId: string | null) => void;
+  clickedCourseId: string | null;
 }
 
 interface CourseDetectiveState {
@@ -222,6 +223,7 @@ class CourseDetective extends Component<
       hoveredCourseId,
       onCourseSelect,
       onCourseHover,
+      clickedCourseId,
     } = this.props;
     const { orderElements, filteredCourses } = this.state;
     return (
@@ -257,6 +259,7 @@ class CourseDetective extends Component<
               onCourseSelect={onCourseSelect}
               onCourseHover={onCourseHover}
               displaySelectedOnly={false}
+              clickedCourseId={clickedCourseId}
             />
           </StyledCardBody>
         </Card>

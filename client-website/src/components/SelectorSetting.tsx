@@ -20,6 +20,7 @@ interface SelectorSettingProps {
   latestCourseHistoryData: string;
   convertVersion: (version: string) => string | React.ReactNode;
   searchTimeSlot: TimeSlot[];
+  clickedCourseId: string | null;
 }
 
 interface SelectorSettingState {
@@ -146,6 +147,7 @@ class SelectorSetting extends Component<
       latestCourseHistoryData,
       convertVersion,
       searchTimeSlot,
+      clickedCourseId,
     } = this.props;
     const { filterOptions } = this.state;
 
@@ -162,6 +164,7 @@ class SelectorSetting extends Component<
           filterOptions={filterOptions}
           detectTimeConflict={this.detectTimeConflict}
           calculateTotalCreditsAndHours={this.calculateTotalCreditsAndHours}
+          clickedCourseId={clickedCourseId}
         />
       ),
       學期必修: (
@@ -175,6 +178,7 @@ class SelectorSetting extends Component<
           filterOptions={filterOptions}
           detectTimeConflict={this.detectTimeConflict}
           calculateTotalCreditsAndHours={this.calculateTotalCreditsAndHours}
+          clickedCourseId={clickedCourseId}
         />
       ),
       課程偵探: (
@@ -188,6 +192,7 @@ class SelectorSetting extends Component<
           searchTimeSlot={searchTimeSlot}
           detectTimeConflict={this.detectTimeConflict}
           calculateTotalCreditsAndHours={this.calculateTotalCreditsAndHours}
+          clickedCourseId={clickedCourseId}
         />
       ),
       已選匯出: (
