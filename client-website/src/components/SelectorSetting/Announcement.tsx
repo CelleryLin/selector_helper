@@ -60,7 +60,7 @@ class Announcement extends Component<AnnouncementProps> {
             </Col>
             <Col lg={6} md={6}>
               <TextWithIcon>
-                <FileEarmarkText /> 回饋表單：
+                <FileEarmarkText /> 回饋表單 Feedback：
               </TextWithIcon>
               <ul>
                 <li>
@@ -82,13 +82,13 @@ class Announcement extends Component<AnnouncementProps> {
             </Col>
             <Col lg={6} md={6}>
               <TextWithIcon>
-                <ArrowUpCircle /> 更新內容：
+                <ArrowUpCircle /> 更新內容 Updates：
               </TextWithIcon>
               <ul>{this.renderList(ANNOUNCEMENT_DATA.updates)}</ul>
             </Col>
             <Col lg={6} md={6}>
               <TextWithIcon>
-                <Gear /> 主要功能：
+                <Gear /> 主要功能 Main Features：
               </TextWithIcon>
               <ul>{this.renderList(ANNOUNCEMENT_DATA.features)}</ul>
             </Col>

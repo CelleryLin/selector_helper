@@ -13,7 +13,7 @@ import {
 } from './types';
 
 export const ANNOUNCEMENT_DATA = {
-  version: 'v5.1.0',
+  version: 'v5.1.1',
   feedbackFormUrl: 'https://forms.gle/gFBZDgkSbj85zukP6',
   description: [
     <>
@@ -77,8 +77,8 @@ export const ANNOUNCEMENT_DATA = {
   githubUrl: 'https://github.com/CelleryLin/selector_helper/',
   contactEmail: 'yochen0123@gmail.com',
   copyright: [
-    'By Cellery Lin and whats2000. MEME113 ',
-    'Copyright © 2023 Cellery Lin and whats2000. All rights reserved.',
+    'By Cellery Lin (MEME113) and whats2000 (MIS114).',
+    'MIT License, Copyright © 2023 Cellery Lin and whats2000. All rights reserved.',
   ],
 };
 
@@ -86,24 +86,34 @@ export const ENTRY_NOTIFICATION_CONFIG = {
   version: ANNOUNCEMENT_DATA.version,
   description: (
     <>
-      我們已更新使用條款，當您使用本網站時，即表示您同意
-      <a
-        href='https://github.com/CelleryLin/selector_helper/blob/main/term_of_use.md'
-        target='_blank'
-        rel='noreferrer noopener'
-      >
-        使用條款
-      </a>
+      <ul>
+        <li>
+          中山選課論壇DC現在啟用啦！
+          <a
+            href='https://discord.gg/Md4x9frrHf'
+            target='_blank'
+            rel='noreferrer noopener'
+          >
+            點我前往
+          </a>
+          ，歡迎大家多加利用。
+        </li>
+        <li>
+          We are now looking for the frontend developer to improve experience for English users. 
+          If you are interested, please fill out the &nbsp;
+          <a
+            href={ANNOUNCEMENT_DATA.feedbackFormUrl}
+            target='_blank'
+            rel='noreferrer noopener'
+          >
+            form below.  
+          </a>
+        </li>
+      </ul>
     </>
   ),
   updates: [
-    <a
-      href='https://github.com/CelleryLin/selector_helper/blob/main/term_of_use.md'
-      target='_blank'
-      rel='noreferrer noopener'
-    >
-      使用條款
-    </a>,
+    "引入課程API，課程資料現在會每小時更新一次",
   ],
   feedbackFormUrl: ANNOUNCEMENT_DATA.feedbackFormUrl,
 };
