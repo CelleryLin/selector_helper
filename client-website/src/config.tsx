@@ -15,6 +15,7 @@ import {
 export const ANNOUNCEMENT_DATA = {
   version: 'v5.1.1',
   feedbackFormUrl: 'https://forms.gle/gFBZDgkSbj85zukP6',
+  DCForumUrl: "https://discord.gg/Md4x9frrHf",
   description: [
     <>
       此網站式依據電腦的使用者體驗設計，建議
@@ -31,20 +32,13 @@ export const ANNOUNCEMENT_DATA = {
       <span className='text-danger fw-bold'>
         如果實驗性功能有任何問題，請聯絡我
       </span>
-    </>,
+    </>
   ],
   updates: [
-    '實驗性功能：改用自動更新API，資料將每小時更新一次。',
-    '自動選課改稱課程偵探，並且改成排序列表',
-    '新版前端完成了！手機版也有了！',
-    '新增課程偵探時間點擊篩選功能',
-    '一鍵登記與已選課程合併了',
-    '新增課程偵探排序功能',
-    '新增匯入與匯出功能',
-    '優化課程動態渲染',
-    '可以收起課表了',
+    '改用自動更新API，資料將每小時更新一次。',
   ],
   features: [
+    '超漂亮UI',
     '課表動態更新',
     '一鍵加入必修課',
     '更強大的篩選器以及智慧搜尋',
@@ -77,7 +71,7 @@ export const ANNOUNCEMENT_DATA = {
   githubUrl: 'https://github.com/CelleryLin/selector_helper/',
   contactEmail: 'yochen0123@gmail.com',
   copyright: [
-    'By Cellery Lin (MEME113) and whats2000 (MIS114).',
+    'By Cellery Lin (MEM113) and whats2000 (MIS114).',
     'MIT License, Copyright © 2023 Cellery Lin and whats2000. All rights reserved.',
   ],
 };
@@ -90,7 +84,7 @@ export const ENTRY_NOTIFICATION_CONFIG = {
         <li>
           中山選課論壇DC現在啟用啦！
           <a
-            href='https://discord.gg/Md4x9frrHf'
+            href={ANNOUNCEMENT_DATA.DCForumUrl}
             target='_blank'
             rel='noreferrer noopener'
           >
@@ -106,8 +100,9 @@ export const ENTRY_NOTIFICATION_CONFIG = {
             target='_blank'
             rel='noreferrer noopener'
           >
-            form below.  
+            form below
           </a>
+          , or contact me (yochen0123@gmail.com) directly.
         </li>
       </ul>
     </>
