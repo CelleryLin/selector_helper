@@ -72,7 +72,7 @@ export const ANNOUNCEMENT_DATA = {
   contactEmail: 'yochen0123@gmail.com',
   copyright: [
     'By Cellery Lin (MEM113) and whats2000 (MIS114).',
-    'MIT License, Copyright © 2023 Cellery Lin and whats2000. All rights reserved.',
+    `MIT License, Copyright © ${new Date().getFullYear()} Cellery Lin and whats2000. All rights reserved.`,
   ],
 };
 
