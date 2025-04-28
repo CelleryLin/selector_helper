@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Col, Row } from 'react-bootstrap';
-import { ArrowBarRight, ArrowBarLeft } from 'react-bootstrap-icons';
+import { Col, Row, Alert, Container } from 'react-bootstrap';
+import {
+  ArrowBarRight,
+  ArrowBarLeft,
+  ExclamationTriangleFill,
+} from 'react-bootstrap-icons';
 import ReactGA from 'react-ga4';
 
 import Header from './components/Header';
@@ -21,8 +25,13 @@ import { mapNewApiToOldApiFormat } from '@/utils';
 
 const TRACKING_ID = 'G-38C3BQTTSC'; // your Measurement ID
 
-const MainContent = styled.main`
+const AlertContainer = styled(Container)`
   margin-top: 68px;
+`;
+
+// Update MainContent styled component to use a prop for dynamic margin-top
+const MainContent = styled.main<{ isAlertVisible: boolean }>`
+  margin-top: ${(props) => (props.isAlertVisible ? '10px' : '68px')};
   margin-bottom: 10px;
 `;
 
@@ -80,6 +89,7 @@ interface AppState {
     availableSemesters: AcademicYear;
   };
   clickedCourseId?: string | null;
+  isAlertVisible: boolean; // Add new state property
 }
 
 class App extends Component<{}, AppState> {
@@ -103,6 +113,7 @@ class App extends Component<{}, AppState> {
       },
     },
     clickedCourseId: null,
+    isAlertVisible: true, // Initialize new state property
   };
 
   componentDidMount() {
@@ -443,6 +454,7 @@ class App extends Component<{}, AppState> {
       loading,
       searchTimeSlot,
       clickedCourseId,
+      isAlertVisible,
     } = this.state;
     const slideStyle = {
       marginLeft: isCollapsed ? (window.innerWidth >= 992 ? '-50%' : '0') : '0',
@@ -468,6 +480,44 @@ class App extends Component<{}, AppState> {
           onSemesterChange={this.onSemesterChange}
         />
         <EntryNotification />
+
+        <AlertContainer fluid>
+          <Alert
+            variant='warning'
+            className='d-flex align-items-center'
+            dismissible
+            onClose={() => this.setState({ isAlertVisible: false })}
+          >
+            <ExclamationTriangleFill size={24} className='me-2' />
+            <div>
+              <strong>重要通知：</strong>
+              <ul>
+                <li>
+                  本項目已經搬移到新的網址！請前往{' '}
+                  <Alert.Link
+                    href='https://nsysu-opendev.github.io/NSYSUSelectorHelper/'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    https://nsysu-opendev.github.io/NSYSUSelectorHelper/
+                  </Alert.Link>{' '}
+                  查看最新版本。此舊版本將不再更新，但仍然可用。
+                </li>
+                <li>
+                  在新版網頁中的「已選匯出」頁面可匯入舊版的資料。詳細搬遷說明請參考{' '}
+                  <Alert.Link
+                    href='https://github.com/CelleryLin/selector_helper/'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    https://github.com/CelleryLin/selector_helper/
+                  </Alert.Link>
+                </li>
+              </ul>
+            </div>
+          </Alert>
+        </AlertContainer>
+
         {loading && <LoadingSpinner loadingName={loading} />}
         {/* bookmark */}
         <ToggleButton
@@ -477,7 +527,11 @@ class App extends Component<{}, AppState> {
           {isCollapsed ? <ArrowBarRight /> : <ArrowBarLeft />}
         </ToggleButton>
 
-        <MainContent id='app' className='container-fluid'>
+        <MainContent
+          id='app'
+          className='container-fluid'
+          isAlertVisible={isAlertVisible}
+        >
           <Row className='d-flex flex-wrap'>
             <SlideColContainer
               style={slideStyle}
