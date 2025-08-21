@@ -495,11 +495,11 @@ class App extends Component<{}, AppState> {
                 <li>
                   本項目已經搬移到新的網址！請前往{' '}
                   <Alert.Link
-                    href='https://nsysu-opendev.github.io/NSYSUSelectorHelper/'
+                    href='https://nsysu-opendev.github.io/NSYSUCourseSelectorV6/'
                     target='_blank'
                     rel='noopener noreferrer'
                   >
-                    https://nsysu-opendev.github.io/NSYSUSelectorHelper/
+                    https://nsysu-opendev.github.io/NSYSUCourseSelectorV6/
                   </Alert.Link>{' '}
                   查看最新版本。此舊版本將不再更新，但仍然可用。
                 </li>

@@ -2,7 +2,7 @@
 
 > [!WARNING]
 > ⚠️ **重要提醒** ⚠️ 該專案已經搬移到新的 GitHub Repo，請前往新的地址查看最新的程式碼。
-> **[https://github.com/NSYSU-OpenDev/NSYSUSelectorHelper](https://github.com/NSYSU-OpenDev/NSYSUSelectorHelper)**
+> **[https://github.com/NSYSU-OpenDev/NSYSUCourseSelectorV6](https://github.com/NSYSU-OpenDev/NSYSUCourseSelectorV6)**
 
 ## 舊有資料搬遷方式
 
@@ -22,7 +22,7 @@
 
    ![複製匯出資料](client-website/src/images/ExportCourse3.png)
 
-5. 前往新的網站， 網址為 **[https://nsysu-opendev.github.io/NSYSUSelectorHelper/#已選匯出](https://nsysu-opendev.github.io/NSYSUSelectorHelper/#%E5%B7%B2%E9%81%B8%E5%8C%AF%E5%87%BA)**。
+5. 前往新的網站， 網址為 **[https://nsysu-opendev.github.io/NSYSUCourseSelectorV6/](https://nsysu-opendev.github.io/NSYSUCourseSelectorV6/)**。
 
 6. 點擊 `匯入` 按鈕，並把複製的貼到輸入框中。
 
